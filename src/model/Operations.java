@@ -3,6 +3,7 @@ import ui.*;
 import java.io.IOException;
 
 public class Operations {
+
   public static void clrscm() {
     try {
       final String OS = System.getProperty("os.name");
