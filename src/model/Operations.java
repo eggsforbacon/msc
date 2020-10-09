@@ -26,4 +26,9 @@ public class Operations {
       System.out.println(e);
     }
   }
+
+  public static User login(String userName, String password, int age) {
+    User loggedUser = new User(userName,password,age);
+    return loggedUser;
+  }
 }
