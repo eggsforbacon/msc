@@ -4,12 +4,13 @@ import java.util.*;
 
 public class Stream {
 
-  public static int switcherMainMenu(int userAnswer, int millis, Scanner in) {
+  static Menus menu = new Menus();
+
+  public static int switcherMainMenu(int millis, Scanner in, int userAnswer) {
     switch (userAnswer) {
       case 0:
         break;
       case 1:
-        Menus.printUserMenu(millis,in);
         break;
       case 2:
         break;

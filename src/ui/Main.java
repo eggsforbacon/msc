@@ -4,15 +4,17 @@ import java.util.*;
 
 public class Main {
 
-  public static final String VERSION = "0.5.4-pre";
+  public static final String VERSION = "0.2.2.6-pre";
 
   public static void main(String[] args) {
     Scanner in = new Scanner(System.in);
+    Menus menu = new Menus();
     int userAnswer = 0;
-    Menus.welcomeLogo(8,in);
+    menu.welcomeLogo(8,in);
+    User currentUser = menu.printLoginMenu(8,in);
     do {
-      userAnswer = Menus.printMainMenu(8,in);
-      userAnswer = Stream.switcherMainMenu(userAnswer,8,in);
+      userAnswer = menu.printMainMenu(8,in,currentUser);
+      userAnswer = Stream.switcherMainMenu(8,in,userAnswer);
     } while (userAnswer != 0);
   }
 }

@@ -33,6 +33,4 @@ public class Song {
   public String getGenre() {
     return genre;
   }
-
-  
 }

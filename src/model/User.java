@@ -18,6 +18,19 @@ public class User {
     userRank = RANKS[0];
   }
 
+  public int addSong(String songTitle, String artist, String launchDate, String genre, Scanner in) {
+    boolean contains = Arrays.asList(Song.getGENRES()).contains(genre.toLowerCase());
+
+    while (contains == false) {
+      genre = Stream.addSongValid(in);
+      contains = Arrays.asList(Song.getGENRES()).contains(genre.toLowerCase());
+    }
+    Song song = new Song(songTitle,artist,launchDate,genre);
+    addedSongs.add(song);
+
+    return addedSongs.size();
+  }
+
   //Getters
 
   public String getUserName() {
@@ -44,18 +57,5 @@ public class User {
 
   public void setUserRank(int rankIndex) {
     userRank = RANKS[rankIndex];
-  }
-
-  public int addSong(String songTitle, String artist, String launchDate, String genre, Scanner in) {
-    boolean contains = Arrays.asList(Song.getGENRES()).contains(genre.toLowerCase());
-
-    while (contains == false) {
-      genre = Stream.addSongValid(in);
-      contains = Arrays.asList(Song.getGENRES()).contains(genre.toLowerCase());
-    }
-    Song song = new Song(songTitle,artist,launchDate,genre);
-    addedSongs.add(song);
-
-    return addedSongs.size();
   }
 }
