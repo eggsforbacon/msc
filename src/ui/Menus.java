@@ -2,9 +2,12 @@ package ui;
 import model.*;
 import java.util.*;
 
+/**
+*Handles most of the user interface, which are the menus displayed.<br>
+*@author Samuel Hernandez / Zac
+*/
 public class Menus {
 
-  private static int userAnswer = 0;
   private static final String[] LOGO = {
     "(((((((((((((((((((((((((((((((((((((((((((((((((",
     "((((((((((((((((/((((((((((((((((((((((((((((((((",
@@ -55,16 +58,22 @@ public class Menus {
     "*******************Bienvenido!******************",
     "************************************************",
     "************************************************",
-    "Ver perfil                                  [1]*",
+    "*Ver perfil                                 [1]*",
     "*Aniadir una cancion                        [2]*",
     "*Ver Pool                                   [3]*",
     "*Ver Playlists Globales                     [4]*",
-    "Ver mis playlists                           [5]*",
+    "*Ver mis playlists                          [5]*",
     "************************************************",
     "*Salir                                      [0]*",
     "************************************************"};
 
-
+  /**
+  *Displays the welcome logo on screen. <br>
+  *<b>Pre: </b> <br>
+  *<b>Post: </b>The menu is displayed.<br>
+  *@param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
+  *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
+  */
   public void welcomeLogo(int millis, Scanner in) {
     Operations.clrscm();
     System.out.println("(Version " + Main.VERSION + ")");
@@ -76,23 +85,14 @@ public class Menus {
     Operations.clrscm();
   }
 
-  public int[] printMainMenu(int millis, Scanner in, User loggedUser) {
-    int[] userAnswers = new int[2];
-    Operations.clrscm();
-    for (int i = 0; i < MAIN_MENU.length; i++) {
-      if (i == 2) {
-        System.out.println("Usuario: " + loggedUser.getUserName() + "\nRango: " + loggedUser.getUserRank().toUpperCase());
-        Operations.queue(millis);
-      }
-      System.out.println(MAIN_MENU[i]);
-      Operations.queue(millis);
-    }
-    userAnswers[0] = in.nextInt();
-    in.nextLine();
-    return userAnswers;
-  }
-
-  public User printLoginMenu(int millis, Scanner in) {
+  /**
+  *Displays the login menu.<br>
+  *<b>Pre: </b> <br>
+  *<b>Post: </b>The menu is displayed.<br>
+  *@param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
+  *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
+  */
+  public User showLoginMenu(int millis, Scanner in) {
     String loggedUserName = "";
     String loggedPW = "";
     int loggedAge = 0;
@@ -118,5 +118,29 @@ public class Menus {
     }
     User loggedUser = Operations.login(loggedUserName,loggedPW,loggedAge);
     return loggedUser;
+  }
+
+  /**
+  *Displays the main menu. <br>
+  *<b>Pre: </b> <br>
+  *<b>Post: </b>The menu is displayed.<br>
+  *@param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
+  *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
+  *@param loggedUser User object that stores the currently logged user. <b>Must be an already initialized <i>User</i> object.</b><br>
+  */
+  public int[] showMenu(int millis, Scanner in, User loggedUser) {
+    int[] userAnswers = new int[2];
+    Operations.clrscm();
+    for (int i = 0; i < MAIN_MENU.length; i++) {
+      if (i == 2) {
+        System.out.println("Usuario: " + loggedUser.getUserName() + "\nRango: " + loggedUser.getUserRank().toUpperCase());
+        Operations.queue(millis);
+      }
+      System.out.println(MAIN_MENU[i]);
+      Operations.queue(millis);
+    }
+    userAnswers[0] = in.nextInt();
+    in.nextLine();
+    return userAnswers;
   }
 }

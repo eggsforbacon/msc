@@ -5,7 +5,7 @@ import java.util.*;
 public class Pool {
 
 
-  public static songAdded(Song song) {
+  public static void songAdded(Song song) {
 
   }
 }
