@@ -6,8 +6,8 @@ public class Stream {
 
   static Menus menu = new Menus();
 
-  public static int switcherMainMenu(int millis, Scanner in, int userAnswer) {
-    switch (userAnswer) {
+  public static int[] switcherMainMenu(int millis, Scanner in, int[] userAnswers) {
+    switch (userAnswers[0]) {
       case 0:
         break;
       case 1:
@@ -19,7 +19,7 @@ public class Stream {
       default:
         break;
     }
-    return userAnswer;
+    return userAnswers;
   }
 
   //Validations and loops

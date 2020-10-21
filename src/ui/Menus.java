@@ -55,11 +55,11 @@ public class Menus {
     "*******************Bienvenido!******************",
     "************************************************",
     "************************************************",
-    "*Aniadir una cancion                        [1]*",
-    "*Ver Pool                                   [2]*",
-    "*Ver Playlists Globales                     [3]*",
-    "Ver mis playlists                           [4]*",
-    "Ver perfil                                  [5]*",
+    "Ver perfil                                  [1]*",
+    "*Aniadir una cancion                        [2]*",
+    "*Ver Pool                                   [3]*",
+    "*Ver Playlists Globales                     [4]*",
+    "Ver mis playlists                           [5]*",
     "************************************************",
     "*Salir                                      [0]*",
     "************************************************"};
@@ -75,8 +75,9 @@ public class Menus {
     Operations.queue(1000);
     Operations.clrscm();
   }
-  
-  public int printMainMenu(int millis, Scanner in, User loggedUser) {
+
+  public int[] printMainMenu(int millis, Scanner in, User loggedUser) {
+    int[] userAnswers = new int[2];
     Operations.clrscm();
     for (int i = 0; i < MAIN_MENU.length; i++) {
       if (i == 2) {
@@ -86,9 +87,9 @@ public class Menus {
       System.out.println(MAIN_MENU[i]);
       Operations.queue(millis);
     }
-    userAnswer = in.nextInt();
+    userAnswers[0] = in.nextInt();
     in.nextLine();
-    return userAnswer;
+    return userAnswers;
   }
 
   public User printLoginMenu(int millis, Scanner in) {
