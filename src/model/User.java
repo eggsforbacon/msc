@@ -11,6 +11,12 @@ public class User {
   private int age;
   private ArrayList<Song> addedSongs = new ArrayList<Song>();
 
+  /**
+  *Constructor of the class.<br>
+  *@param userName String containing the user name. <b>Must not contain <i>spaces, be null or blank</i>.</b><br>
+  *@param password String containing the user password. <b>Must not be <i>null or blank</i>.</b><br>
+  *@param age Integer containing the age of the user. <b>Must be an <i>integer</i>.</b><br>
+  */
   public User(String userName, String password, int age) {
     this.userName = userName;
     this.password = password;
@@ -18,6 +24,15 @@ public class User {
     userRank = RANKS[0];
   }
 
+  /**
+  *Adds a song to the songs the user has added.<br>
+  *<b>Pre: </b><br>
+  *<b>Post: </b>The song is added to the User's song's arraylist.<br>
+  *@param songTitle String containing the song's name. <b>Must not be <i>null or blank</i>.</b><br>
+  *@param artist String containing the song's artist. <b>Must not be <i>null or blank</i>.</b><br>
+  *@param launchDate String containing the song's release date. <b>Must not be <i>null or blank</i>.</b><br>
+  *@param genre String containing the song's genre. <b>Must not be <i>null, blank</i> or be excluded out of the array <i>GENRES</i>.</b><br>
+  *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>*/
   public int addSong(String songTitle, String artist, String launchDate, String genre, Scanner in) {
     boolean contains = Arrays.asList(Song.getGENRES()).contains(genre.toLowerCase());
 
@@ -33,28 +48,45 @@ public class User {
 
   //Getters
 
+  /**
+  *@return The current username.<br>*/
   public String getUserName() {
     return userName;
   }
 
+  /**
+  *@return The current password.<br>
+  */
   public String getPassword() {
     return password;
   }
 
+  /**
+  @return The current user's rank.<br>
+  */
   public String getUserRank() {
     return userRank;
   }
 
+  /**
+  *@return The current user's age.<br>
+  */
   public int getAge() {
     return age;
   }
 
+  /**
+  *@return The current songs the user has added.<br>
+  */
   public ArrayList<Song> getAddedSongs() {
     return addedSongs;
   }
 
   //Setters
 
+  /**
+  *@param rankIndex The index of the rank to be set. <b>Must be a <i>positive integer lesser or equal to 3</i>.</b><br>
+  */
   public void setUserRank(int rankIndex) {
     userRank = RANKS[rankIndex];
   }

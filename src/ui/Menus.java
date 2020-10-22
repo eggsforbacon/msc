@@ -66,6 +66,16 @@ public class Menus {
     "************************************************",
     "*Salir                                      [0]*",
     "************************************************"};
+  private static final String[] OPT1_MENU = {
+    "************************************************",
+    "*********************Usuario********************",
+    "**Nombre de Usuario: ",
+    "**Edad: ",
+    "**Rango: ",
+    "**Canciones compartidas: ",
+    "************************************************",
+    "*Presiona cualquier tecla y ENTER para volver  *",
+    "************************************************"};
 
   /**
   *Displays the welcome logo on screen. <br>
@@ -142,5 +152,35 @@ public class Menus {
     userAnswers[0] = in.nextInt();
     in.nextLine();
     return userAnswers;
+  }
+
+  /**
+  *Shows the menu when first option is selected in main menu.<br>
+  *<b>Pre: </b> <br>
+  *<b>Post: </b>The menu is displayed.<br>
+  *@param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
+  *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
+  *@param loggedUser User object that stores the currently logged user. <b>Must be an already initialized <i>User</i> object.</b><br>
+  */
+  public void showProfileMenu(int millis,Scanner in, User loggedUser) {
+    for (int i = 0; i < OPT1_MENU.length; i++) {
+      if (i == 2) {
+        System.out.println(OPT1_MENU[i] + loggedUser.getUserName());
+      }
+      else if (i == 3) {
+        System.out.println(OPT1_MENU[i] + loggedUser.getAge());
+      }
+      else if (i == 4) {
+        System.out.println(OPT1_MENU[i] + loggedUser.getUserRank().toUpperCase());
+      }
+      else if (i == 5) {
+        System.out.println(OPT1_MENU[i] + loggedUser.getAddedSongs().size());
+      }
+      else {
+        System.out.println(OPT1_MENU[i]);
+      }
+      Operations.queue(millis);
+    }
+    in.next();
   }
 }

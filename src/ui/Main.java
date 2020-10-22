@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Main {
 
-  public static final String VERSION = "0.9-pre";
+  public static final String VERSION = "0.9.4-pre";
 
   public static void main(String[] args) {
     Scanner in = new Scanner(System.in);
@@ -14,7 +14,7 @@ public class Main {
     User currentUser = menu.showLoginMenu(8,in);
     do {
       userAnswers = menu.showMenu(8,in,currentUser);
-      userAnswers = Stream.switcherMainMenu(8,in,userAnswers);
+      userAnswers = Stream.switcherMainMenu(8,in,userAnswers,currentUser);
     } while (userAnswers[0] != 0);
     System.out.println("Hasta pronto!");
     Operations.queue(1000);
