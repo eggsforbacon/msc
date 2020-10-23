@@ -24,7 +24,8 @@ public class Stream {
       case 0:
         break;
       case 1:
-        menu.showProfileMenu(millis,in,currentUser);
+        menu.showProfileMenu(millis,in,currentUser,userAnswers);
+        userAnswers = switcherOpt1(millis, in, userAnswers, currentUser);
         break;
       case 2:
         break;
@@ -33,6 +34,29 @@ public class Stream {
       case 4:
         break;
       case 5:
+        break;
+      default:
+        break;
+    }
+    return userAnswers;
+  }
+
+  /**
+  *Switches between the outcomes according to user input.<br>
+  *<b>Pre: </b> <br>
+  *<b>Post: </b>The corresponding outcome is ran.<br>
+  *@param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
+  *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
+  *@param userAnswers Integer array that allows the program to move between menus. <b>Must be an already initialized <i>integer</i> array.</b><br>
+  *@param currentUser User object that is the current user. <b>Must be already <i>initialized</i>.</b><br>
+  */
+  public static int[] switcherOpt1(int millis, Scanner in, int[] userAnswers, User currentUser) {
+    switch (userAnswers[1]) {
+      case 0:
+        break;
+      case 1:
+        break;
+      case 2:
         break;
       default:
         break;

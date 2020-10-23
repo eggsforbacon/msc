@@ -34,16 +34,7 @@ public class User {
   *@param genre String containing the song's genre. <b>Must not be <i>null, blank</i> or be excluded out of the array <i>GENRES</i>.</b><br>
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>*/
   public int addSong(String songTitle, String artist, String launchDate, String genre, Scanner in) {
-    boolean contains = Arrays.asList(Song.getGENRES()).contains(genre.toLowerCase());
-
-    while (contains == false) {
-      genre = Stream.addSongValid(in);
-      contains = Arrays.asList(Song.getGENRES()).contains(genre.toLowerCase());
-    }
-    Song song = new Song(songTitle,artist,launchDate,genre);
-    addedSongs.add(song);
-
-    return addedSongs.size();
+    return 0;
   }
 
   //Getters
@@ -89,5 +80,32 @@ public class User {
   */
   public void setUserRank(int rankIndex) {
     userRank = RANKS[rankIndex];
+  }
+
+  /**
+  *@param userName The username to be set to.<br>
+  */
+  public void setUserName(String userName) {
+    this.userName = userName;
+  }
+
+  /**
+  *@param password The password to be set to.<br>
+  */
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  /**
+  *@param age The age to be set to.<br>
+  */
+  public boolean setAge(int age) {
+    if (this.age < age) {
+      this.age = age;
+      return true;
+    }
+    else {
+      return false;
+    }
   }
 }

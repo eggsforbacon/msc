@@ -8,6 +8,7 @@ import java.util.*;
 */
 public class Menus {
 
+  private App msc = new App();
   private static final String[] LOGO = {
     "(((((((((((((((((((((((((((((((((((((((((((((((((",
     "((((((((((((((((/((((((((((((((((((((((((((((((((",
@@ -74,7 +75,8 @@ public class Menus {
     "**Rango: ",
     "**Canciones compartidas: ",
     "************************************************",
-    "*Presiona cualquier tecla y ENTER para volver  *",
+    "*Cambiar de usuario                         [1]*",
+    "*Volver                                [ANYKEY]*",
     "************************************************"};
 
   /**
@@ -127,6 +129,7 @@ public class Menus {
       Operations.queue(millis);
     }
     User loggedUser = Operations.login(loggedUserName,loggedPW,loggedAge);
+    msc.addToUserList(loggedUser);
     return loggedUser;
   }
 
@@ -161,8 +164,10 @@ public class Menus {
   *@param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
   *@param loggedUser User object that stores the currently logged user. <b>Must be an already initialized <i>User</i> object.</b><br>
+  *@param userAnswers Integer array that allows the program to move between menus. <b>Must be an already initialized <i>integer</i> array.</b><br>
   */
-  public void showProfileMenu(int millis,Scanner in, User loggedUser) {
+  public int[] showProfileMenu(int millis,Scanner in, User loggedUser, int[] userAnswers) {
+    Operations.clrscm();
     for (int i = 0; i < OPT1_MENU.length; i++) {
       if (i == 2) {
         System.out.println(OPT1_MENU[i] + loggedUser.getUserName());
@@ -181,6 +186,8 @@ public class Menus {
       }
       Operations.queue(millis);
     }
-    in.next();
+    userAnswers[1] = in.nextInt();
+    return userAnswers;
   }
+
 }
