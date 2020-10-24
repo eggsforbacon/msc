@@ -46,36 +46,37 @@ public class Menus {
     "               ........,,,,.......",
     "                    .........",
     "\n*************************************************"};
-  private static final String[] USER_LOGIN = {
-    "************************************************",
-    "*****************Iniciar Sesion*****************",
-    "*Ingrese su Usuario:                           *\n",
-    "*Ingrese su contrasenia:                       *\n",
-    "*Ingrese su edad:                              *\n",
-    "************************************************",
-    "************************************************"};
   private static final String[] MAIN_MENU = {
     "************************************************",
     "*******************Bienvenido!******************",
     "************************************************",
     "************************************************",
-    "*Ver perfil                                 [1]*",
-    "*Aniadir una cancion                        [2]*",
-    "*Ver Pool                                   [3]*",
-    "*Ver Playlists Globales                     [4]*",
-    "*Ver mis playlists                          [5]*",
+    "*Aniadir un usuario                         [1]*",
+    "*Ver perfiles                               [2]*",
+    "*Aniadir una cancion                        [3]*",
+    "*Ver Pool                                   [4]*",
+    "*Aniadir playlist                           [5]*",
+    "*Ver Playlists                              [6]*",
     "************************************************",
     "*Salir                                      [0]*",
     "************************************************"};
-  private static final String[] OPT1_MENU = {
+  private static final String[] ADD_USER_MENU = {
     "************************************************",
-    "*********************Usuario********************",
+    "************************************************",
+    "*Nombre de usuario:                            *\n",
+    "*Contraseña:                                   *\n",
+    "*Edad:                                         *\n",
+    "************************************************",
+    "***********Usuario creado con exito!************",
+    "************************************************"};
+  private static final String[] SEE_PROFILES_MENU = {
+    "************************************************",
+    "************************************************",
     "**Nombre de Usuario: ",
     "**Edad: ",
     "**Rango: ",
     "**Canciones compartidas: ",
     "************************************************",
-    "*Cambiar de usuario                         [1]*",
     "*Volver                                [ANYKEY]*",
     "************************************************"};
 
@@ -98,60 +99,16 @@ public class Menus {
   }
 
   /**
-  *Displays the login menu.<br>
-  *<b>Pre: </b> <br>
-  *<b>Post: </b>The menu is displayed.<br>
-  *@param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
-  *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
-  */
-  public User showLoginMenu(int millis, Scanner in) {
-    String loggedUserName = "";
-    String loggedPW = "";
-    int loggedAge = 0;
-    Operations.clrscm();
-    for (int i = 0; i < USER_LOGIN.length; i++) {
-      if (i == 3) {
-        loggedUserName = in.next();
-        in.nextLine();
-        Operations.queue(millis);
-      }
-      else if (i == 4) {
-        loggedPW = in.next();
-        in.nextLine();
-        Operations.queue(millis);
-      }
-      else if (i == 5) {
-        loggedAge = in.nextInt();
-        in.nextLine();
-        Operations.queue(millis);
-      }
-      System.out.println(USER_LOGIN[i]);
-      Operations.queue(millis);
-    }
-    User loggedUser = Operations.login(loggedUserName,loggedPW,loggedAge);
-    msc.addToUserList(loggedUser);
-    return loggedUser;
-  }
-
-  /**
   *Displays the main menu. <br>
   *<b>Pre: </b> <br>
   *<b>Post: </b>The menu is displayed.<br>
   *@param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
-  *@param loggedUser User object that stores the currently logged user. <b>Must be an already initialized <i>User</i> object.</b><br>
   */
-  public int[] showMenu(int millis, Scanner in, User loggedUser) {
+  public int[] showMenu(int millis, Scanner in) {
     int[] userAnswers = new int[2];
     Operations.clrscm();
-    for (int i = 0; i < MAIN_MENU.length; i++) {
-      if (i == 2) {
-        System.out.println("Usuario: " + loggedUser.getUserName() + "\nRango: " + loggedUser.getUserRank().toUpperCase());
-        Operations.queue(millis);
-      }
-      System.out.println(MAIN_MENU[i]);
-      Operations.queue(millis);
-    }
+    Stream.slowPrint(millis,MAIN_MENU);
     userAnswers[0] = in.nextInt();
     in.nextLine();
     return userAnswers;
@@ -163,31 +120,70 @@ public class Menus {
   *<b>Post: </b>The menu is displayed.<br>
   *@param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
-  *@param loggedUser User object that stores the currently logged user. <b>Must be an already initialized <i>User</i> object.</b><br>
-  *@param userAnswers Integer array that allows the program to move between menus. <b>Must be an already initialized <i>integer</i> array.</b><br>
   */
-  public int[] showProfileMenu(int millis,Scanner in, User loggedUser, int[] userAnswers) {
+  public void showAddUserMenu(int millis, Scanner in) {
     Operations.clrscm();
-    for (int i = 0; i < OPT1_MENU.length; i++) {
-      if (i == 2) {
-        System.out.println(OPT1_MENU[i] + loggedUser.getUserName());
+    String newUserName = "";
+    String newPassword = "";
+    int newAge = 0;
+    User newUser;
+    for (int i = 0; i < ADD_USER_MENU.length; i++) {
+      System.out.println(ADD_USER_MENU[i]);
+      switch (i) {
+        case 2:
+          newUserName = in.next();
+          in.nextLine();
+          break;
+        case 3:
+          newPassword = in.nextLine();
+          break;
+        case 4:
+          newAge = in.nextInt();
+          in.nextLine();
+          break;
+        case 5:
+          newUser = new User(newUserName,newPassword,newAge);
+          msc.addToUserList(newUser);
+        default:
+          break;
       }
-      else if (i == 3) {
-        System.out.println(OPT1_MENU[i] + loggedUser.getAge());
-      }
-      else if (i == 4) {
-        System.out.println(OPT1_MENU[i] + loggedUser.getUserRank().toUpperCase());
-      }
-      else if (i == 5) {
-        System.out.println(OPT1_MENU[i] + loggedUser.getAddedSongs().size());
-      }
-      else {
-        System.out.println(OPT1_MENU[i]);
-      }
-      Operations.queue(millis);
     }
-    userAnswers[1] = in.nextInt();
-    return userAnswers;
+    Operations.queue(1500);
   }
 
+  /**
+  *Shows the menu when second option is selected in main menu.<br>
+  *<b>Pre: </b> <br>
+  *<b>Post: </b>The menu is displayed.<br>
+  *@param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
+  *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
+  */
+  public void showProfilesMenu(int millis,Scanner in) {
+    Operations.clrscm();
+    ArrayList<User> userList = msc.getUserList();
+    for (User i : userList) {
+      for (int j = 0; j < 6; j++) {
+        switch (j) {
+          case 2:
+            System.out.println(SEE_PROFILES_MENU[j] + i.getUserName());
+            break;
+          case 3:
+            System.out.println(SEE_PROFILES_MENU[j] + i.getAge());
+            break;
+          case 4:
+            System.out.println(SEE_PROFILES_MENU[j] + i.getUserRank());
+            break;
+          default:
+            System.out.println(SEE_PROFILES_MENU[j]);
+            break;
+        }
+        Operations.queue(millis);
+      }
+    }
+    for (int k = 6; k < 9; k++) {
+      System.out.println(SEE_PROFILES_MENU[k]);
+      Operations.queue(millis);
+    }
+    in.next();
+  }
 }

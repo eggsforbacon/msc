@@ -67,10 +67,10 @@ public class User {
   }
 
   /**
-  *@return The current songs the user has added.<br>
+  *@return The number of songs the user has added.<br>
   */
-  public ArrayList<Song> getAddedSongs() {
-    return addedSongs;
+  public int getAddedSongs() {
+    return addedSongs.size();
   }
 
   //Setters

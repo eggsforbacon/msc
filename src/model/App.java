@@ -15,26 +15,6 @@ public class App {
   private ArrayList<RestrictedPL> restrictedPlaylists = new ArrayList<RestrictedPL>();
   private int totPlaylists = 0;
 
-  /**
-  *Changes data of the currentUser.<br>
-  *<b>Pre: </b>A user has been previously created.<br>
-  *<b>Post: </b>The user's data is succesfully modified.<br>
-  *@param user User object to be changed.<br>
-  */
-  public User editCurrentUser(User user, String newUsername, String newPassword, int newAge) {
-    boolean flag = false;
-    for (int i = 0; i < userList.size() && !flag ; i++) {
-      boolean condition = user.getUserName().equals(userList.get(i).getUserName());
-      if (condition == true) {
-        userList.get(i).setUserName(user.getUserName());
-        userList.get(i).setAge(user.getAge());
-        userList.get(i).setPassword(user.getPassword());
-        flag = true;
-      }
-    }
-    return user;
-  }
-
   //Getters
 
   /**
