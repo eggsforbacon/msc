@@ -64,7 +64,7 @@ public class Menus {
     "************************************************",
     "************************************************",
     "*Nombre de usuario:                            *\n",
-    "*Contraseña:                                   *\n",
+    "*Contrasenia:                                  *\n",
     "*Edad:                                         *\n",
     "************************************************",
     "***********Usuario creado con exito!************",
@@ -79,7 +79,9 @@ public class Menus {
     "************************************************",
     "*Volver                                [ANYKEY]*",
     "************************************************"};
-
+  private static final String[] ADD_SONG_MENU = {
+    
+  };
   /**
   *Displays the welcome logo on screen. <br>
   *<b>Pre: </b> <br>
@@ -173,6 +175,9 @@ public class Menus {
           case 4:
             System.out.println(SEE_PROFILES_MENU[j] + i.getUserRank());
             break;
+          case 5:
+            System.out.println(SEE_PROFILES_MENU[j] + i.getAddedSongs());
+            break;
           default:
             System.out.println(SEE_PROFILES_MENU[j]);
             break;
@@ -185,5 +190,16 @@ public class Menus {
       Operations.queue(millis);
     }
     in.next();
+  }
+
+  /**
+  *Shows the menu when third option is selected in main menu.<br>
+  *<b>Pre: </b> <br>
+  *<b>Post: </b>The menu is displayed.<br>
+  *@param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
+  *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
+  */
+  public void showAddSongMenu(int millis, Scanner in) {
+
   }
 }

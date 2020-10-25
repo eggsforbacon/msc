@@ -28,13 +28,11 @@ public class User {
   *Adds a song to the songs the user has added.<br>
   *<b>Pre: </b><br>
   *<b>Post: </b>The song is added to the User's song's arraylist.<br>
-  *@param songTitle String containing the song's name. <b>Must not be <i>null or blank</i>.</b><br>
-  *@param artist String containing the song's artist. <b>Must not be <i>null or blank</i>.</b><br>
-  *@param launchDate String containing the song's release date. <b>Must not be <i>null or blank</i>.</b><br>
-  *@param genre String containing the song's genre. <b>Must not be <i>null, blank</i> or be excluded out of the array <i>GENRES</i>.</b><br>
-  *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>*/
-  public int addSong(String songTitle, String artist, String launchDate, String genre, Scanner in) {
-    return 0;
+  *@param newSong Song object holding the song to be added. <b>Must be previously <i>initialized</i>.</b><br>
+  *@param msc App object in which all the app's info is stored. <b>Must be the <i>current app and not a new object</i>.</b><br>
+  */
+  public App addSong(Song newSong, App msc) {
+    return msc;
   }
 
   //Getters

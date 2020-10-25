@@ -3,7 +3,7 @@ import model.*;
 import java.util.*;
 
 /**
-*Handles the rest of the UI stream. <br>
+*Handles the rest of the UI stream, which are validations, switches and default methods. <br>
 *@author Samuel Hernandez / Zac
 */
 public class Stream {
@@ -42,7 +42,7 @@ public class Stream {
     return userAnswers;
   }
 
-  //Validations and loops
+  //Validations and deaults
 
   /**
   *Loops through a string constant and prints it with a given delay.<br>
