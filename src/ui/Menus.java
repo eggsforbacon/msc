@@ -84,6 +84,7 @@ public class Menus {
     "*******************Nueva cancion****************",
     "*Nombre de la cancion:                         *\n",
     "*Artista:                                      *\n",
+    "*Album:                                        *\n",
     "*Fecha de lanzamiento [DD/MM/AAAA]:            *\n",
     "*Duracion [MM:SS]:                             *\n",
     "*********************Generos********************",
@@ -92,6 +93,18 @@ public class Menus {
     "*Escoger un usuario que aniadira la cancion:   *\n",
     "************************************************",
     "************Cancion creada con exito!***********",
+    "************************************************"};
+  private static final String[] SEE_POOL_MENU = {
+    "************************************************",
+    "************************************************",
+    "**Titulo: ",
+    "**Artista: ",
+    "**Album: ",
+    "**Fecha de Lanzamiento: ",
+    "**Duracion: ",
+    "**Genero: ",
+    "************************************************",
+    "*Volver                                [ANYKEY]*",
     "************************************************"};
 
   /**
@@ -215,6 +228,7 @@ public class Menus {
     Operations.clrscm();
     String newSongTitle = "";
     String newArtist = "";
+    String newAlbum = "";
     String newReleaseDate = "";
     String newDurationStr = "";
     Duration newDurationObj = new Duration();
@@ -230,25 +244,28 @@ public class Menus {
           newArtist = in.nextLine();
           break;
         case 4:
-          newReleaseDate = in.nextLine();
+          newAlbum = in.nextLine();
           break;
         case 5:
+          newReleaseDate = in.nextLine();
+          break;
+        case 6:
           newDurationStr = in.nextLine();
           newDurationObj.toIntFormat(newDurationStr);
           break;
-        case 6:
+        case 7:
           int j = 0;
           for (Genre g : genres) {
             System.out.println("**[" + j + "] " + g );
             j++;
           }
           break;
-        case 8:
+        case 9:
           newGenreIndex = in.nextInt();
           in.nextLine();
           break;
-        case 9:
-          int k = 0;
+        case 10:
+          int k = 1;
           for (User u : msc.getUserList()) {
             System.out.println("**[" + k + "] " + u.getUserName());
             k++;
@@ -260,7 +277,7 @@ public class Menus {
           break;
       }
     }
-    Song newSong = new Song(newSongTitle,newArtist,newReleaseDate,newDurationObj,newGenreIndex);
+    Song newSong = new Song(newSongTitle,newArtist,newAlbum,newReleaseDate,newDurationObj,newGenreIndex);
     msc.addToPool(newSong);
     Operations.queue(1000);
   }
