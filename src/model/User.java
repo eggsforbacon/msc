@@ -2,14 +2,18 @@ package model;
 import ui.*;
 import java.util.*;
 
+/**
+*Class that defines the blueprint for a User object and all its functionalities.<br>
+*@author Samuel Hernandez / Zac
+*/
 public class User {
-  private final String[] RANKS = {"Newbie","Mild Contributor","Little Contributor","Star Contributor"};
+  private final String[] RANKS = {"Newbie","Little Contributor","Mild Contributor","Star Contributor"};
 
   private String userName;
   private String password;
   private String userRank;
   private int age;
-  private ArrayList<Song> addedSongs = new ArrayList<Song>();
+  private int quantity;
 
   /**
   *Constructor of the class.<br>
@@ -67,8 +71,8 @@ public class User {
   /**
   *@return The number of songs the user has added.<br>
   */
-  public int getAddedSongs() {
-    return addedSongs.size();
+  public int getQuantity() {
+    return quantity;
   }
 
   //Setters
@@ -104,6 +108,24 @@ public class User {
     }
     else {
       return false;
+    }
+  }
+
+  /**
+  *Adds one to the user's song count and modifies their rank if needed.<br>
+  *<b>Pre: </b><br>
+  *<b>Post: </b>The user's count is modified succesfully.<br>
+  */
+  public void modifyRank() {
+    quantity += 1;
+    if (quantity >= 3 && quantity < 10) {
+      userRank = RANKS[1];
+    }
+    else if (quantity >= 10 && quantity < 30) {
+      userRank = RANKS[2];
+    }
+    else if (quantity == 30) {
+      userRank = RANKS[3];
     }
   }
 }

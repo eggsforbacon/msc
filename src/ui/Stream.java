@@ -29,6 +29,7 @@ public class Stream {
         menu.showProfilesMenu(millis,in);
         break;
       case 3:
+        menu.showAddSongMenu(millis,in);
         break;
       case 4:
         break;

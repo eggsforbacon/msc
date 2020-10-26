@@ -62,7 +62,7 @@ public class Menus {
     "************************************************"};
   private static final String[] ADD_USER_MENU = {
     "************************************************",
-    "************************************************",
+    "******************Nuevo usuario*****************",
     "*Nombre de usuario:                            *\n",
     "*Contrasenia:                                  *\n",
     "*Edad:                                         *\n",
@@ -80,8 +80,20 @@ public class Menus {
     "*Volver                                [ANYKEY]*",
     "************************************************"};
   private static final String[] ADD_SONG_MENU = {
-    
-  };
+    "************************************************",
+    "*******************Nueva cancion****************",
+    "*Nombre de la cancion:                         *\n",
+    "*Artista:                                      *\n",
+    "*Fecha de lanzamiento [DD/MM/AAAA]:            *\n",
+    "*Duracion [MM:SS]:                             *\n",
+    "*********************Generos********************",
+    "*Introduzca el numero correspondiente al genero*",
+    "*de la cancion:                                *\n",
+    "*Escoger un usuario que aniadira la cancion:   *\n",
+    "************************************************",
+    "************Cancion creada con exito!***********",
+    "************************************************"};
+
   /**
   *Displays the welcome logo on screen. <br>
   *<b>Pre: </b> <br>
@@ -176,7 +188,7 @@ public class Menus {
             System.out.println(SEE_PROFILES_MENU[j] + i.getUserRank());
             break;
           case 5:
-            System.out.println(SEE_PROFILES_MENU[j] + i.getAddedSongs());
+            System.out.println(SEE_PROFILES_MENU[j] + i.getQuantity());
             break;
           default:
             System.out.println(SEE_PROFILES_MENU[j]);
@@ -200,6 +212,56 @@ public class Menus {
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
   */
   public void showAddSongMenu(int millis, Scanner in) {
-
+    Operations.clrscm();
+    String newSongTitle = "";
+    String newArtist = "";
+    String newReleaseDate = "";
+    String newDurationStr = "";
+    Duration newDurationObj = new Duration();
+    int newGenreIndex = 0;
+    Genre[] genres = Genre.values();
+    for (int i = 0; i < ADD_SONG_MENU.length; i++) {
+      System.out.println(ADD_SONG_MENU[i]);
+      switch (i) {
+        case 2:
+          newSongTitle = in.nextLine();
+          break;
+        case 3:
+          newArtist = in.nextLine();
+          break;
+        case 4:
+          newReleaseDate = in.nextLine();
+          break;
+        case 5:
+          newDurationStr = in.nextLine();
+          newDurationObj.toIntFormat(newDurationStr);
+          break;
+        case 6:
+          int j = 0;
+          for (Genre g : genres) {
+            System.out.println("**[" + j + "] " + g );
+            j++;
+          }
+          break;
+        case 8:
+          newGenreIndex = in.nextInt();
+          in.nextLine();
+          break;
+        case 9:
+          int k = 0;
+          for (User u : msc.getUserList()) {
+            System.out.println("**[" + k + "] " + u.getUserName());
+            k++;
+          }
+          k = in.nextInt();
+          in.nextLine();
+          msc.getUserList().get(k).modifyRank();
+        default:
+          break;
+      }
+    }
+    Song newSong = new Song(newSongTitle,newArtist,newReleaseDate,newDurationObj,newGenreIndex);
+    msc.addToPool(newSong);
+    Operations.queue(1000);
   }
 }
