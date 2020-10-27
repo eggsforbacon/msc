@@ -28,17 +28,6 @@ public class User {
     userRank = RANKS[0];
   }
 
-  /**
-  *Adds a song to the songs the user has added.<br>
-  *<b>Pre: </b><br>
-  *<b>Post: </b>The song is added to the User's song's arraylist.<br>
-  *@param newSong Song object holding the song to be added. <b>Must be previously <i>initialized</i>.</b><br>
-  *@param msc App object in which all the app's info is stored. <b>Must be the <i>current app and not a new object</i>.</b><br>
-  */
-  public App addSong(Song newSong, App msc) {
-    return msc;
-  }
-
   //Getters
 
   /**

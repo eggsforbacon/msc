@@ -77,7 +77,7 @@ public class Menus {
     "**Rango: ",
     "**Canciones compartidas: ",
     "************************************************",
-    "*Volver                                [ANYKEY]*",
+    "*Volver                                 [ENTER]*",
     "************************************************"};
   private static final String[] ADD_SONG_MENU = {
     "************************************************",
@@ -104,7 +104,7 @@ public class Menus {
     "**Duracion: ",
     "**Genero: ",
     "************************************************",
-    "*Volver                                [ANYKEY]*",
+    "*Volver                                 [ENTER]*",
     "************************************************"};
 
   /**
@@ -118,8 +118,8 @@ public class Menus {
     Operations.clrscm();
     System.out.println("(Version " + Main.VERSION + ")");
     Stream.slowPrint(millis,LOGO);
-    System.out.println("(Presionar cualquier tecla y [ENTER] para continuar...)");
-    in.next();
+    System.out.println("(Presionar [ENTER] para continuar...)");
+    in.nextLine();
     System.out.println("Iniciando...");
     Operations.queue(1000);
     Operations.clrscm();
@@ -214,7 +214,7 @@ public class Menus {
       System.out.println(SEE_PROFILES_MENU[k]);
       Operations.queue(millis);
     }
-    in.next();
+    in.nextLine();
   }
 
   /**
@@ -234,6 +234,8 @@ public class Menus {
     Duration newDurationObj = new Duration();
     int newGenreIndex = 0;
     Genre[] genres = Genre.values();
+    Song newSong;
+    int k = 1;
     for (int i = 0; i < ADD_SONG_MENU.length; i++) {
       System.out.println(ADD_SONG_MENU[i]);
       switch (i) {
@@ -265,20 +267,64 @@ public class Menus {
           in.nextLine();
           break;
         case 10:
-          int k = 1;
           for (User u : msc.getUserList()) {
             System.out.println("**[" + k + "] " + u.getUserName());
             k++;
           }
-          k = in.nextInt();
+          k = in.nextInt() - 1;
           in.nextLine();
-          msc.getUserList().get(k).modifyRank();
         default:
           break;
       }
     }
-    Song newSong = new Song(newSongTitle,newArtist,newAlbum,newReleaseDate,newDurationObj,newGenreIndex);
-    msc.addToPool(newSong);
+    newSong = new Song(newSongTitle,newArtist,newAlbum,newReleaseDate,newDurationObj,newGenreIndex);
+    if (msc.addToPool(newSong) == true) {
+      msc.getUserList().get(k).modifyRank();
+    }
     Operations.queue(1000);
+  }
+
+  /**
+  *Shows the menu when second option is selected in main menu.<br>
+  *<b>Pre: </b> <br>
+  *<b>Post: </b>The menu is displayed.<br>
+  *@param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
+  *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
+  */
+  public void showPoolMenu(int millis, Scanner in) {
+    Operations.clrscm();
+    ArrayList<Song> pool = msc.getPool();
+    for (int s = 0; s < pool.size(); s++) {
+      for (int i = 0; i < 6; i++) {
+        switch (i) {
+          case 2:
+            System.out.println(SEE_POOL_MENU[i] + pool.get(s).getSongTitle());
+            break;
+          case 3:
+            System.out.println(SEE_POOL_MENU[i] + pool.get(s).getArtist());
+            break;
+          case 4:
+            System.out.println(SEE_POOL_MENU[i] + pool.get(s).getAlbum());
+            break;
+          case 5:
+            System.out.println(SEE_POOL_MENU[i] + pool.get(s).getReleaseDate());
+            break;
+          case 6:
+            System.out.println(SEE_POOL_MENU[i] + pool.get(s).getDuration());
+            break;
+          case 7:
+            System.out.println(SEE_POOL_MENU[i] + pool.get(s).getGenre());
+          default:
+            System.out.println(SEE_POOL_MENU[i]);
+            break;
+        }
+        Operations.queue(millis);
+      }
+    }
+    for (int k = 8; k < 11; k++) {
+      System.out.println(SEE_POOL_MENU[k]);
+      Operations.queue(millis);
+    }
+    in.nextLine();
   }
 }

@@ -56,6 +56,20 @@ public class Song {
   }
 
   /**
+  *@return The song's release date.<br>
+  */
+  public String getReleaseDate() {
+    return releaseDate;
+  }
+
+  /**
+  *@return The song's duration.<br>
+  */
+  public String getDuration() {
+    return songDuration.toString();
+  }
+
+  /**
   *@return The song's genre.<br>*/
   public String getGenre() {
     return genre;

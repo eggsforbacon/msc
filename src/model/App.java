@@ -73,16 +73,19 @@ public class App {
   *@param song Song object to be added. <b>Must be <i>previously initialized</i>.</b><br>
   */
   public boolean addToPool(Song song) {
-    boolean cond2 = false;
-    boolean cond1 = false;
-    for (int i = 0; i < pool.size() && !cond1; i++) {
-      Song compareTo = pool.get(i);
-      cond1 = (compareTo.getSongTitle().equals(song.getSongTitle()) == true) && (compareTo.getArtist().equals(song.getArtist()) == true);
-    }
-    cond2 = pool.size() < 30;
-    if (cond1 && cond2 == false) {
-      pool.add(song);
-      return true;
+    if (pool.size() < 30) {
+      boolean exists = false;
+      for (int s = 0; s < pool.size() && exists == false; s++) {
+        exists = song.getSongTitle().equals(pool.get(s).getSongTitle());
+        if (exists == true) exists = song.getArtist().equals(pool.get(s).getArtist());
+      }
+      if (exists == false) {
+        pool.add(song);
+        return true;
+      }
+      else {
+        return false;
+      }
     }
     else {
       return false;

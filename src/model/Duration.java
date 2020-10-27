@@ -31,6 +31,7 @@ public class Duration {
     minutes = m;
     seconds = s;
   }
+
   /**
   *Converts a string to the correct format.<br>
   *@param string String to be converted.<br>
@@ -52,5 +53,21 @@ public class Duration {
       default:
         break;
     }
+  }
+
+  /**
+  *Converts the class atributes to one string.<br>
+  */
+  public String toString() {
+    if (hours != 0) {
+      format += hours + ":" + minutes + ":" + seconds;
+    }
+    else if (minutes != 0) {
+      format += minutes + ":" + seconds;
+    }
+    else {
+      format += seconds;
+    }
+    return format;
   }
 }
