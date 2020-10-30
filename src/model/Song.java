@@ -63,10 +63,17 @@ public class Song {
   }
 
   /**
+  *@return The song's duration as a string.<br>
+  */
+  public String getStringDuration() {
+    return songDuration.toString();
+  }
+
+  /**
   *@return The song's duration.<br>
   */
-  public String getDuration() {
-    return songDuration.toString();
+  public Duration getSongDuration() {
+    return songDuration;
   }
 
   /**

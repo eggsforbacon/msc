@@ -1,5 +1,5 @@
 package ui;
-import model.*;
+import model.Operations;
 import java.util.*;
 
 /**
@@ -20,16 +20,14 @@ public class Stream {
   */
   public static int[] switcherMainMenu(int millis, Scanner in, int[] userAnswers) {
     switch (userAnswers[0]) {
-      case 0:
-        break;
       case 1:
-        menu.showAddUserMenu(millis,in);
+        menu.showAddUserMenu(in);
         break;
       case 2:
         menu.showProfilesMenu(millis,in);
         break;
       case 3:
-        menu.showAddSongMenu(millis,in);
+        menu.showAddSongMenu(in);
         break;
       case 4:
         menu.showPoolMenu(millis,in);
@@ -44,8 +42,6 @@ public class Stream {
     return userAnswers;
   }
 
-  //Validations and deaults
-
   /**
   *Loops through a string constant and prints it with a given delay.<br>
   *<b>Pre: </b> <br>
@@ -54,22 +50,9 @@ public class Stream {
   *@param CONST String array containing the lines to be printed. <b>Must not be of length <i>0 or lower</i>.</b><br>
   */
   public static void slowPrint(int millis, String[] CONST) {
-    for (int i = 0; i < CONST.length; i++) {
-      System.out.println(CONST[i]);
+    for (String s : CONST) {
+      System.out.println(s);
       Operations.queue(millis);
     }
-  }
-
-  /**
-  *Checks if the genre is valid for a given song.<br>
-  *<b>Pre: </b>There has been an attempt of <b>creating</b> a new song.<br>
-  *<b>Post: </b>The new genre inputed is returned.<br>
-  *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
-  */
-  public static String addSongValid(Scanner in) {
-    System.out.println("El genero ingresado no es valido, por favor intente de nuevo:\n");
-    String genre = in.next();
-    in.nextLine();
-    return genre;
   }
 }

@@ -106,6 +106,13 @@ public class Menus {
     "************************************************",
     "*Volver                                 [ENTER]*",
     "************************************************"};
+  private static final String[] ADD_PLAYLIST_MENU = {
+    "************************************************",
+    "******************Nueva Playlist****************",
+    "*Tipo de Playlist:                             *\n",
+    "[1]Privada",
+    "[2]Restringida",
+    "[3]Publica"};
 
   /**
   *Displays the welcome logo on screen. <br>
@@ -145,10 +152,9 @@ public class Menus {
   *Shows the menu when first option is selected in main menu.<br>
   *<b>Pre: </b> <br>
   *<b>Post: </b>The menu is displayed.<br>
-  *@param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
   */
-  public void showAddUserMenu(int millis, Scanner in) {
+  public void showAddUserMenu(Scanner in) {
     Operations.clrscm();
     String newUserName = "";
     String newPassword = "";
@@ -221,16 +227,15 @@ public class Menus {
   *Shows the menu when third option is selected in main menu.<br>
   *<b>Pre: </b> <br>
   *<b>Post: </b>The menu is displayed.<br>
-  *@param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
   */
-  public void showAddSongMenu(int millis, Scanner in) {
+  public void showAddSongMenu(Scanner in) {
     Operations.clrscm();
     String newSongTitle = "";
     String newArtist = "";
     String newAlbum = "";
     String newReleaseDate = "";
-    String newDurationStr = "";
+    String newDurationStr;
     Duration newDurationObj = new Duration();
     int newGenreIndex = 0;
     Genre[] genres = Genre.values();
@@ -278,14 +283,14 @@ public class Menus {
       }
     }
     newSong = new Song(newSongTitle,newArtist,newAlbum,newReleaseDate,newDurationObj,newGenreIndex);
-    if (msc.addToPool(newSong) == true) {
+    if (msc.addToPool(newSong)) {
       msc.getUserList().get(k).modifyRank();
     }
     Operations.queue(1000);
   }
 
   /**
-  *Shows the menu when second option is selected in main menu.<br>
+  *Shows the menu when fourth option is selected in main menu.<br>
   *<b>Pre: </b> <br>
   *<b>Post: </b>The menu is displayed.<br>
   *@param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
@@ -294,26 +299,26 @@ public class Menus {
   public void showPoolMenu(int millis, Scanner in) {
     Operations.clrscm();
     ArrayList<Song> pool = msc.getPool();
-    for (int s = 0; s < pool.size(); s++) {
-      for (int i = 0; i < 6; i++) {
+    for (Song song : pool) {
+      for (int i = 0; i < 8; i++) {
         switch (i) {
           case 2:
-            System.out.println(SEE_POOL_MENU[i] + pool.get(s).getSongTitle());
+            System.out.println(SEE_POOL_MENU[i] + song.getSongTitle());
             break;
           case 3:
-            System.out.println(SEE_POOL_MENU[i] + pool.get(s).getArtist());
+            System.out.println(SEE_POOL_MENU[i] + song.getArtist());
             break;
           case 4:
-            System.out.println(SEE_POOL_MENU[i] + pool.get(s).getAlbum());
+            System.out.println(SEE_POOL_MENU[i] + song.getAlbum());
             break;
           case 5:
-            System.out.println(SEE_POOL_MENU[i] + pool.get(s).getReleaseDate());
+            System.out.println(SEE_POOL_MENU[i] + song.getReleaseDate());
             break;
           case 6:
-            System.out.println(SEE_POOL_MENU[i] + pool.get(s).getDuration());
+            System.out.println(SEE_POOL_MENU[i] + song.getStringDuration());
             break;
           case 7:
-            System.out.println(SEE_POOL_MENU[i] + pool.get(s).getGenre());
+            System.out.println(SEE_POOL_MENU[i] + song.getGenre());
           default:
             System.out.println(SEE_POOL_MENU[i]);
             break;
@@ -326,5 +331,17 @@ public class Menus {
       Operations.queue(millis);
     }
     in.nextLine();
+  }
+
+  /**
+  *Shows the menu when fifth option is selected in main menu.<br>
+  *<b>Pre: </b> <br>
+  *<b>Post: </b>The menu is displayed.<br>
+  *@param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
+  *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
+  *@param userAnswers Integer array that holds the user answers. <b>*/
+  public int[] showAddPlaylistsMenu(int millis, Scanner in, int[] userAnswers) {
+
+    return userAnswers;
   }
 }

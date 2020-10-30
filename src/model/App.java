@@ -1,5 +1,4 @@
 package model;
-import ui.*;
 import java.util.*;
 
 /**
@@ -8,13 +7,9 @@ import java.util.*;
 */
 public class App {
 
-  private ArrayList<User> userList = new ArrayList<User>();
-  private ArrayList<Song> pool = new ArrayList<Song>();
-  private ArrayList<PublicPL> publicPlaylists = new ArrayList<PublicPL>();
-  private ArrayList<PrivatePL> privatePlaylists = new ArrayList<PrivatePL>();
-  private ArrayList<RestrictedPL> restrictedPlaylists = new ArrayList<RestrictedPL>();
-  private int totPlaylists = 0;
-
+  private ArrayList<User> userList = new ArrayList<>();
+  private ArrayList<Song> pool = new ArrayList<>();
+  private ArrayList<Playlist> playlists = new ArrayList<>();
   //Getters
 
   /**
@@ -32,24 +27,10 @@ public class App {
   }
 
   /**
-  @return The public Playlists.<br>
+  @return The Playlists.<br>
   */
-  public ArrayList<PublicPL> getPublicPlaylists() {
-    return publicPlaylists;
-  }
-
-  /**
-  @return The restricted Playlists.<br>
-  */
-  public ArrayList<RestrictedPL> getRestrictedPlaylists() {
-    return restrictedPlaylists;
-  }
-
-  /**
-  @return The private Playlists.<br>
-  */
-  public ArrayList<PrivatePL> getPrivatePlaylists() {
-    return privatePlaylists;
+  public ArrayList<Playlist> getPlaylists() {
+    return playlists;
   }
 
   //Adders
@@ -75,11 +56,13 @@ public class App {
   public boolean addToPool(Song song) {
     if (pool.size() < 30) {
       boolean exists = false;
-      for (int s = 0; s < pool.size() && exists == false; s++) {
+      for (int s = 0; s < pool.size() && !exists; s++) {
         exists = song.getSongTitle().equals(pool.get(s).getSongTitle());
-        if (exists == true) exists = song.getArtist().equals(pool.get(s).getArtist());
+        if (exists) {
+          exists = song.getArtist().equals(pool.get(s).getArtist());
+        }
       }
-      if (exists == false) {
+      if (!exists) {
         pool.add(song);
         return true;
       }
@@ -93,43 +76,12 @@ public class App {
   }
 
   /**
-  *Adds a public playlist.<br>
-  *@param pbPl PublicPL object to be added. <b>Must be <i>previously initialized</i>.</b><br>
+  *Adds a playlist to the playlists.<br>
+  *@param playlist Playlist object to be added. <b>Must be <i>previously initialized</i>.</b><br>
   */
-  public boolean addToPublicPlaylists(PublicPL pbPl) {
-    if (totPlaylists < 20) {
-      publicPlaylists.add(pbPl);
-      totPlaylists += 1;
-      return true;
-    }
-    else {
-      return false;
-    }
-  }
-
-  /**
-  *Adds a private playlist.<br>
-  *@param prPl PrivatePL object to be added. <b>Must be <i>previously initialized</i>.</b><br>
-  */
-  public boolean addToPrivatePlaylists(PrivatePL prPl) {
-    if (totPlaylists < 20) {
-      privatePlaylists.add(prPl);
-      totPlaylists += 1;
-      return true;
-    }
-    else {
-      return false;
-    }
-  }
-
-  /**
-  *Adds a restricted playlist.<br>
-  *@param rsPl RestrictedPL object to be added. <b>Must be <i>previously initialized</i>.</b><br>
-  */
-  public boolean addToRestrictedPlaylists(RestrictedPL rsPl) {
-    if (totPlaylists < 20) {
-      restrictedPlaylists.add(rsPl);
-      totPlaylists += 1;
+  public boolean addToPlaylists(Playlist playlist) {
+    if (playlists.size() < 20) {
+      playlists.add(playlist);
       return true;
     }
     else {
