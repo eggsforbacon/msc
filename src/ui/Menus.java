@@ -46,6 +46,9 @@ public class Menus {
     "               ........,,,,.......",
     "                    .........",
     "\n*************************************************"};
+  public String[] getLOGO() {
+    return LOGO;
+  }
   private static final String[] MAIN_MENU = {
     "************************************************",
     "*******************Bienvenido!******************",
@@ -113,24 +116,6 @@ public class Menus {
     "[1]Privada",
     "[2]Restringida",
     "[3]Publica"};
-
-  /**
-  *Displays the welcome logo on screen. <br>
-  *<b>Pre: </b> <br>
-  *<b>Post: </b>The menu is displayed.<br>
-  *@param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
-  *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
-  */
-  public void welcomeLogo(int millis, Scanner in) {
-    Operations.clrscm();
-    System.out.println("(Version " + Main.VERSION + ")");
-    Stream.slowPrint(millis,LOGO);
-    System.out.println("(Presionar [ENTER] para continuar...)");
-    in.nextLine();
-    System.out.println("Iniciando...");
-    Operations.queue(1000);
-    Operations.clrscm();
-  }
 
   /**
   *Displays the main menu. <br>
