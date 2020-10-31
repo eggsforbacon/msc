@@ -6,116 +6,47 @@ import java.util.*;
 *Handles most of the user interface, which are the menus displayed.<br>
 *@author Samuel Hernandez / Zac
 */
-public class Menus {
+public class Menus implements UIs {
 
+  private final int ADD_USER = 1;
+  private final int SHOW_USERS = 2;
+  private final int ADD_SONG = 3;
+  private final int SHOW_POOL = 4;
+  private final int ADD_PLAYLIST = 5;
+  private final int SHOW_PLAYLISTS = 6;
+  private boolean exit = false;
   private App msc = new App();
-  private static final String[] LOGO = {
-    "(((((((((((((((((((((((((((((((((((((((((((((((((",
-    "((((((((((((((((/((((((((((((((((((((((((((((((((",
-    "(((/  .(((((((*  .((((((*        (((((/      /(((",
-    "(((/   .((((((.  .(((((   ,((((((((((*  .((((((((",
-    "(((/    /((((/   .((((/  ,(((((((((((.  /((((((((",
-    "(((/     ((((*   .((((*  ,(((((((((((/   ((((((((",
-    "(((/  *  *(((     ((((*  ,((((((((((((,  .(((((((",
-    "(((/  /.  ((*     ((((*  *(((((((((((((,   ((((((",
-    "(((/  //  ,(  .   ((((*  *((((((((((((((/   /((((",
-    "(((/  *(*  ,  (   ((((*  *((((((((((((((((   /(((",
-    "(((/  ,(/    ,(   /(((*  ,(((((((((((((((((   (((",
-    "(((/  .((    ((   /((((  .(((((((((((((((((.  /((",
-    "(((/  .((.  .((.  *((((,  *((((((((((((((((   /((",
-    "(((/  .((((((((.  *(((((   *((((/,/(((((((/   (((",
-    "(((/  .((((((((.  *((((((.        *((   .   .((((",
-    "(((((((((((((((/*/((((((((((///(((((((////(((((((",
-    "(((((((((((((((((((((((((((((((((((((((((((((((((",
-    "(((((((((((//MUSIC COLLECT & SHARE//(((((((((((((\n",
-    "              ./(###((///((###(*",
-    "           *#(,                   *((,",
-    "        ,#/                           ((",
-    "      .#*          .**/////*,.          ((",
-    "     *(.      .//////////////////*       *#",
-    "    .#,     *///////////////////////,     /(",
-    "    /(    *///////////////////////////    .#.",
-    "  ,/////,*/////////////////////////////,*////*.",
-    "  /////////////////////////*,...,/////////////,",
-    "  //////*,,,********,,.............,,,,,//////,",
-    "  //////*.........//*........//*.......,//////,",
-    "  //////*.........,,.........,,........,//////,",
-    "  //////*..............................,//////,",
-    "   *///*  ........,/.........**.......  .*///,",
-    "            .......,/*.....,/*.......",
-    "               ........,,,,.......",
-    "                    .........",
-    "\n*************************************************"};
-  public String[] getLOGO() {
-    return LOGO;
+
+  /**
+  *Displays the welcome logo on screen. <br>
+  *<b>Pre: </b> <br>
+  *<b>Post: </b>The menu is displayed.<br>
+  *@param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
+  *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
+  */
+  private void welcomeLogo(int millis, Scanner in) {
+    Operations.clrscm();
+    System.out.println("(Version " + Main.VERSION + ")");
+    Stream.slowPrint(millis,LOGO);
+    System.out.println("(Presionar [ENTER] para continuar...)");
+    in.nextLine();
+    System.out.println("Iniciando...");
+    Operations.queue(1000);
+    Operations.clrscm();
   }
-  private static final String[] MAIN_MENU = {
-    "************************************************",
-    "*******************Bienvenido!******************",
-    "************************************************",
-    "************************************************",
-    "*Aniadir un usuario                         [1]*",
-    "*Ver perfiles                               [2]*",
-    "*Aniadir una cancion                        [3]*",
-    "*Ver Pool                                   [4]*",
-    "*Aniadir playlist                           [5]*",
-    "*Ver Playlists                              [6]*",
-    "************************************************",
-    "*Salir                                      [0]*",
-    "************************************************"};
-  private static final String[] ADD_USER_MENU = {
-    "************************************************",
-    "******************Nuevo usuario*****************",
-    "*Nombre de usuario:                            *\n",
-    "*Contrasenia:                                  *\n",
-    "*Edad:                                         *\n",
-    "************************************************",
-    "***********Usuario creado con exito!************",
-    "************************************************"};
-  private static final String[] SEE_PROFILES_MENU = {
-    "************************************************",
-    "************************************************",
-    "**Nombre de Usuario: ",
-    "**Edad: ",
-    "**Rango: ",
-    "**Canciones compartidas: ",
-    "************************************************",
-    "*Volver                                 [ENTER]*",
-    "************************************************"};
-  private static final String[] ADD_SONG_MENU = {
-    "************************************************",
-    "*******************Nueva cancion****************",
-    "*Nombre de la cancion:                         *\n",
-    "*Artista:                                      *\n",
-    "*Album:                                        *\n",
-    "*Fecha de lanzamiento [DD/MM/AAAA]:            *\n",
-    "*Duracion [MM:SS]:                             *\n",
-    "*********************Generos********************",
-    "*Introduzca el numero correspondiente al genero*",
-    "*de la cancion:                                *\n",
-    "*Escoger un usuario que aniadira la cancion:   *\n",
-    "************************************************",
-    "************Cancion creada con exito!***********",
-    "************************************************"};
-  private static final String[] SEE_POOL_MENU = {
-    "************************************************",
-    "************************************************",
-    "**Titulo: ",
-    "**Artista: ",
-    "**Album: ",
-    "**Fecha de Lanzamiento: ",
-    "**Duracion: ",
-    "**Genero: ",
-    "************************************************",
-    "*Volver                                 [ENTER]*",
-    "************************************************"};
-  private static final String[] ADD_PLAYLIST_MENU = {
-    "************************************************",
-    "******************Nueva Playlist****************",
-    "*Tipo de Playlist:                             *\n",
-    "[1]Privada",
-    "[2]Restringida",
-    "[3]Publica"};
+
+  /**
+  *Starts the program.<br>
+  *<b>Pre: </b><br>
+  *<b>Post: </b>The program is started succesfully.<br>
+  */
+  public void startProgram(int millis) {
+    Scanner in = new Scanner(System.in);
+    welcomeLogo(millis,in);
+    do {
+      showMenu(millis,in);
+    }while (!exit);
+  }
 
   /**
   *Displays the main menu. <br>
@@ -124,13 +55,45 @@ public class Menus {
   *@param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
   */
-  public int[] showMenu(int millis, Scanner in) {
-    int[] userAnswers = new int[2];
+  private void showMenu(int millis, Scanner in) {
     Operations.clrscm();
     Stream.slowPrint(millis,MAIN_MENU);
-    userAnswers[0] = in.nextInt();
-    in.nextLine();
-    return userAnswers;
+    switchMainMenu(in.nextInt(),in,millis);
+  }
+
+  /**
+  *Shows a menu or another depending on user input in the main menu.<br>
+  *<b>Pre: </b><br>
+  *<b>Post: </b>The correct menu is called and showed.<br>
+  *@param answer Integer that handles the decision of the user.<br>
+  *@param  in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
+  *@param  millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
+  */
+  private void switchMainMenu(int answer, Scanner in, int millis) {
+    switch (answer) {
+      case 0:
+        exit = true;
+        break;
+      case ADD_USER:
+        showAddUserMenu(in);
+        break;
+      case SHOW_USERS:
+        showProfilesMenu(millis,in);
+        break;
+      case ADD_SONG:
+        showAddSongMenu(in);
+        break;
+      case SHOW_POOL:
+        showPoolMenu(millis,in);
+        break;
+      case ADD_PLAYLIST:
+        showAddPlaylistsMenu(millis,in);
+        break;
+      case SHOW_PLAYLISTS:
+        break;
+      default:
+        throw new IllegalStateException("Valor inesperado: " + answer);
+    }
   }
 
   /**
@@ -139,29 +102,24 @@ public class Menus {
   *<b>Post: </b>The menu is displayed.<br>
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
   */
-  public void showAddUserMenu(Scanner in) {
+  private void showAddUserMenu(Scanner in) {
     Operations.clrscm();
-    String newUserName = "";
-    String newPassword = "";
-    int newAge = 0;
-    User newUser;
+    String[] newUserInfo = new String[3];
     for (int i = 0; i < ADD_USER_MENU.length; i++) {
       System.out.println(ADD_USER_MENU[i]);
       switch (i) {
         case 2:
-          newUserName = in.next();
+          newUserInfo[0] = in.next();
           in.nextLine();
           break;
         case 3:
-          newPassword = in.nextLine();
+          newUserInfo[1] = in.nextLine();
           break;
         case 4:
-          newAge = in.nextInt();
-          in.nextLine();
+          newUserInfo[2] = in.nextLine();
           break;
         case 5:
-          newUser = new User(newUserName,newPassword,newAge);
-          msc.addToUserList(newUser);
+          msc.addToUserList(newUserInfo);
         default:
           break;
       }
@@ -176,7 +134,7 @@ public class Menus {
   *@param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
   */
-  public void showProfilesMenu(int millis,Scanner in) {
+  private void showProfilesMenu(int millis,Scanner in) {
     Operations.clrscm();
     ArrayList<User> userList = msc.getUserList();
     for (User i : userList) {
@@ -214,32 +172,27 @@ public class Menus {
   *<b>Post: </b>The menu is displayed.<br>
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
   */
-  public void showAddSongMenu(Scanner in) {
+  private void showAddSongMenu(Scanner in) {
     Operations.clrscm();
-    String newSongTitle = "";
-    String newArtist = "";
-    String newAlbum = "";
-    String newReleaseDate = "";
+    String[] newSongInfo = new String[4];
     String newDurationStr;
     Duration newDurationObj = new Duration();
-    int newGenreIndex = 0;
     Genre[] genres = Genre.values();
-    Song newSong;
     int k = 1;
     for (int i = 0; i < ADD_SONG_MENU.length; i++) {
       System.out.println(ADD_SONG_MENU[i]);
       switch (i) {
         case 2:
-          newSongTitle = in.nextLine();
+          newSongInfo[0] = in.nextLine();
           break;
         case 3:
-          newArtist = in.nextLine();
+          newSongInfo[1] = in.nextLine();
           break;
         case 4:
-          newAlbum = in.nextLine();
+          newSongInfo[2] = in.nextLine();
           break;
         case 5:
-          newReleaseDate = in.nextLine();
+          newSongInfo[3] = in.nextLine();
           break;
         case 6:
           newDurationStr = in.nextLine();
@@ -253,8 +206,7 @@ public class Menus {
           }
           break;
         case 9:
-          newGenreIndex = in.nextInt();
-          in.nextLine();
+          newSongInfo[4] = in.nextLine();
           break;
         case 10:
           for (User u : msc.getUserList()) {
@@ -267,8 +219,7 @@ public class Menus {
           break;
       }
     }
-    newSong = new Song(newSongTitle,newArtist,newAlbum,newReleaseDate,newDurationObj,newGenreIndex);
-    if (msc.addToPool(newSong)) {
+    if (msc.addToPool(newSongInfo,newDurationObj)) {
       msc.getUserList().get(k).modifyRank();
     }
     Operations.queue(1000);
@@ -281,7 +232,7 @@ public class Menus {
   *@param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
   */
-  public void showPoolMenu(int millis, Scanner in) {
+  private void showPoolMenu(int millis, Scanner in) {
     Operations.clrscm();
     ArrayList<Song> pool = msc.getPool();
     for (Song song : pool) {
@@ -322,11 +273,10 @@ public class Menus {
   *Shows the menu when fifth option is selected in main menu.<br>
   *<b>Pre: </b> <br>
   *<b>Post: </b>The menu is displayed.<br>
-  *@param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
-  *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
-  *@param userAnswers Integer array that holds the user answers. <b>*/
-  public int[] showAddPlaylistsMenu(int millis, Scanner in, int[] userAnswers) {
+   * @param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
+   * @param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br> */
+  private void showAddPlaylistsMenu(int millis, Scanner in) {
 
-    return userAnswers;
+
   }
 }

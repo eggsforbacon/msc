@@ -37,11 +37,12 @@ public class App {
 
   /**
   *Adds a User.<br>
-  *@param user User object to be added. <b>Must be <i>previously initialized</i>.</b><br>
+  *@param userInfo The information for a user object to be added. <b>Must be of size <i>3</i>.</b><br>
   */
-  public boolean addToUserList(User user) {
+  public boolean addToUserList(String[] userInfo) {
+    User newUser = new User(userInfo[0],userInfo[1],Integer.parseInt(userInfo[2]));
     if (userList.size() < 10) {
-      userList.add(user);
+      userList.add(newUser);
       return true;
     }
     else {
@@ -51,19 +52,21 @@ public class App {
 
   /**
   *Adds a Song.<br>
-  *@param song Song object to be added. <b>Must be <i>previously initialized</i>.</b><br>
+  *@param songInfo String array with the info of the new song. <b>Must be of size <i>4</i>.</b><br>
+  *@param songDuration Duration object that is the duration of the song. <b>Must be <i>previously initialized</i>.</b><br>
   */
-  public boolean addToPool(Song song) {
+  public boolean addToPool(String[] songInfo, Duration songDuration) {
     if (pool.size() < 30) {
+      Song newSong = new Song(songInfo[0],songInfo[1],songInfo[2],songInfo[3],songDuration, Integer.parseInt(songInfo[4]));
       boolean exists = false;
       for (int s = 0; s < pool.size() && !exists; s++) {
-        exists = song.getSongTitle().equals(pool.get(s).getSongTitle());
+        exists = newSong.getSongTitle().equals(pool.get(s).getSongTitle());
         if (exists) {
-          exists = song.getArtist().equals(pool.get(s).getArtist());
+          exists = newSong.getArtist().equals(pool.get(s).getArtist());
         }
       }
       if (!exists) {
-        pool.add(song);
+        pool.add(newSong);
         return true;
       }
       else {

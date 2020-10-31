@@ -1,6 +1,4 @@
 package model;
-import ui.*;
-import java.util.*;
 
 /**
 *Class that defines the blueprint for a User object and all its functionalities.<br>
