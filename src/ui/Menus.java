@@ -25,14 +25,14 @@ public class Menus implements UIs {
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
   */
   private void welcomeLogo(int millis, Scanner in) {
-    Operations.clrscm();
+    clrscm();
     System.out.println("(Version " + Main.VERSION + ")");
-    Stream.slowPrint(millis,LOGO);
+    slowPrint(millis,LOGO);
     System.out.println("(Presionar [ENTER] para continuar...)");
     in.nextLine();
     System.out.println("Iniciando...");
-    Operations.queue(1000);
-    Operations.clrscm();
+    queue(1000);
+    clrscm();
   }
 
   /**
@@ -56,8 +56,8 @@ public class Menus implements UIs {
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
   */
   private void showMenu(int millis, Scanner in) {
-    Operations.clrscm();
-    Stream.slowPrint(millis,MAIN_MENU);
+    clrscm();
+    slowPrint(millis,MAIN_MENU);
     switchMainMenu(in.nextInt(),in,millis);
   }
 
@@ -103,7 +103,7 @@ public class Menus implements UIs {
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
   */
   private void showAddUserMenu(Scanner in) {
-    Operations.clrscm();
+    clrscm();
     String[] newUserInfo = new String[3];
     for (int i = 0; i < ADD_USER_MENU.length; i++) {
       System.out.println(ADD_USER_MENU[i]);
@@ -124,7 +124,7 @@ public class Menus implements UIs {
           break;
       }
     }
-    Operations.queue(1500);
+    queue(1500);
   }
 
   /**
@@ -135,7 +135,7 @@ public class Menus implements UIs {
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
   */
   private void showProfilesMenu(int millis,Scanner in) {
-    Operations.clrscm();
+    clrscm();
     ArrayList<User> userList = msc.getUserList();
     for (User i : userList) {
       for (int j = 0; j < 6; j++) {
@@ -156,12 +156,12 @@ public class Menus implements UIs {
             System.out.println(SEE_PROFILES_MENU[j]);
             break;
         }
-        Operations.queue(millis);
+        queue(millis);
       }
     }
     for (int k = 6; k < 9; k++) {
       System.out.println(SEE_PROFILES_MENU[k]);
-      Operations.queue(millis);
+      queue(millis);
     }
     in.nextLine();
   }
@@ -173,7 +173,7 @@ public class Menus implements UIs {
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
   */
   private void showAddSongMenu(Scanner in) {
-    Operations.clrscm();
+    clrscm();
     String[] newSongInfo = new String[4];
     String newDurationStr;
     Duration newDurationObj = new Duration();
@@ -222,7 +222,7 @@ public class Menus implements UIs {
     if (msc.addToPool(newSongInfo,newDurationObj)) {
       msc.getUserList().get(k).modifyRank();
     }
-    Operations.queue(1000);
+    queue(1000);
   }
 
   /**
@@ -233,7 +233,7 @@ public class Menus implements UIs {
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
   */
   private void showPoolMenu(int millis, Scanner in) {
-    Operations.clrscm();
+    clrscm();
     ArrayList<Song> pool = msc.getPool();
     for (Song song : pool) {
       for (int i = 0; i < 8; i++) {
@@ -259,12 +259,12 @@ public class Menus implements UIs {
             System.out.println(SEE_POOL_MENU[i]);
             break;
         }
-        Operations.queue(millis);
+        queue(millis);
       }
     }
     for (int k = 8; k < 11; k++) {
       System.out.println(SEE_POOL_MENU[k]);
-      Operations.queue(millis);
+      queue(millis);
     }
     in.nextLine();
   }
@@ -273,10 +273,58 @@ public class Menus implements UIs {
   *Shows the menu when fifth option is selected in main menu.<br>
   *<b>Pre: </b> <br>
   *<b>Post: </b>The menu is displayed.<br>
-   * @param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
-   * @param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br> */
+  *@param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
+  *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
+  */
   private void showAddPlaylistsMenu(int millis, Scanner in) {
 
+  }
 
+  /**
+  *Probes the program to wait for an x amount of ms.<br>
+  *<b>Pre: </b><br>
+  *<b>Post: </b>If no exception is thrown, the system waits the specified amount of millis
+  *@param millis Integer that specifies the amount of ms for the console to wait. <b>Must be <i>an integer</i>.</b><br>
+  */
+  public static void queue(int millis) {
+    try {
+      Thread.sleep(millis);
+    }catch (Exception e) {
+      System.out.println(e);
+    }
+  }
+
+  /**
+  *Clears the console.<br>
+  *<b>Pre: </b>The system uses either CMD or Unix as their command line.<br>
+  *<b>Post: </b>The console is cleared.<br>
+  */
+  public static void clrscm() {
+    try {
+      final String OS = System.getProperty("os.name");
+
+      if (OS.contains("Windows")) {
+        new ProcessBuilder("cmd","/c","cls").inheritIO().start().waitFor();
+      }
+      else {
+        Runtime.getRuntime().exec("clear");
+      }
+    }catch (Exception e) {
+      System.out.println(e);
+    }
+  }
+
+  /**
+  *Loops through a string constant and prints it with a given delay.<br>
+  *<b>Pre: </b> <br>
+  *<b>Post: </b>The given array si printed with the delay per line.<br>
+  *@param millis Integer that represents the delay in ms. <b>Must be of type <i>int</i>.</b><br>
+  *@param CONST String array containing the lines to be printed. <b>Must not be of length <i>0 or lower</i>.</b><br>
+  */
+  public static void slowPrint(int millis, String[] CONST) {
+    for (String s : CONST) {
+      System.out.println(s);
+      queue(millis);
+    }
   }
 }
