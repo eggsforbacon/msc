@@ -1,4 +1,5 @@
 package model;
+import java.security.SecureRandom;
 
 /**
 *Class that defines the blueprint for a User object and all its functionalities.<br>
@@ -12,6 +13,7 @@ public class User {
   private String userRank;
   private int age;
   private int quantity;
+  private String ID;
 
   /**
   *Constructor of the class.<br>
@@ -24,6 +26,37 @@ public class User {
     this.password = password;
     this.age = age;
     userRank = RANKS[0];
+    generateID();
+  }
+
+  /**
+  *Generates a unique ID for each user.<br>
+  *<b>Pre: </b><br>
+  *<b>Post: </b>The ID is generated.<br>
+  */
+  private void generateID() {
+    String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ" + "0123456789" + "abcdefghijklmnopqrstuvwxyz";
+    StringBuilder sb = new StringBuilder();
+    SecureRandom r = new SecureRandom();
+    for (int i = 0; i < 4; i++) {
+      int index = alphabet.length() * r.nextInt();
+      sb.append(alphabet.charAt(index));
+    }
+    ID = sb.toString();
+  }
+
+  public String[] showInfo() {
+    return new String[] {
+            "************************************************",
+            "**Nombre de Usuario: ",
+            userName,
+            "**Edad: ",
+            Integer.toString(age),
+            "**Rango: ",
+            userRank,
+            "**Canciones compartidas: ",
+            Integer.toString(quantity)
+    };
   }
 
   //Getters
@@ -62,7 +95,14 @@ public class User {
     return quantity;
   }
 
-  //Setters
+  /**
+  * @return The user's unique ID.<br>
+  */
+  public String getID() {
+    return ID;
+  }
+
+//Setters
 
   /**
   *@param rankIndex The index of the rank to be set. <b>Must be a <i>positive integer lesser or equal to 3</i>.</b><br>

@@ -25,14 +25,14 @@ public class Menus implements UIs {
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
   */
   private void welcomeLogo(int millis, Scanner in) {
-    clrscm();
+    clear();
     System.out.println("(Version " + Main.VERSION + ")");
     slowPrint(millis,LOGO);
     System.out.println("(Presionar [ENTER] para continuar...)");
     in.nextLine();
     System.out.println("Iniciando...");
-    queue(1000);
-    clrscm();
+    wait(1000);
+    clear();
   }
 
   /**
@@ -42,7 +42,7 @@ public class Menus implements UIs {
   */
   public void startProgram(int millis) {
     Scanner in = new Scanner(System.in);
-    welcomeLogo(millis,in);
+    welcomeLogo(5,in);
     do {
       showMenu(millis,in);
     }while (!exit);
@@ -56,7 +56,7 @@ public class Menus implements UIs {
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
   */
   private void showMenu(int millis, Scanner in) {
-    clrscm();
+    clear();
     slowPrint(millis,MAIN_MENU);
     switchMainMenu(in.nextInt(),in,millis);
   }
@@ -75,13 +75,13 @@ public class Menus implements UIs {
         exit = true;
         break;
       case ADD_USER:
-        showAddUserMenu(in);
+        showAddUserMenu(millis,in);
         break;
       case SHOW_USERS:
         showProfilesMenu(millis,in);
         break;
       case ADD_SONG:
-        showAddSongMenu(in);
+        showAddSongMenu(millis,in);
         break;
       case SHOW_POOL:
         showPoolMenu(millis,in);
@@ -100,31 +100,29 @@ public class Menus implements UIs {
   *Shows the menu when first option is selected in main menu.<br>
   *<b>Pre: </b> <br>
   *<b>Post: </b>The menu is displayed.<br>
+  *@param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
   */
-  private void showAddUserMenu(Scanner in) {
-    clrscm();
+  private void showAddUserMenu(int millis, Scanner in) {
+    clear();
     String[] newUserInfo = new String[3];
-    for (int i = 0; i < ADD_USER_MENU.length; i++) {
-      System.out.println(ADD_USER_MENU[i]);
-      switch (i) {
-        case 2:
-          newUserInfo[0] = in.next();
-          in.nextLine();
-          break;
-        case 3:
-          newUserInfo[1] = in.nextLine();
-          break;
-        case 4:
-          newUserInfo[2] = in.nextLine();
-          break;
-        case 5:
-          msc.addToUserList(newUserInfo);
-        default:
-          break;
-      }
-    }
-    queue(1500);
+    System.out.println("************************************************");
+    wait(millis);
+    System.out.println("******************Nuevo usuario*****************");
+    wait(millis);
+    System.out.println("*Nombre de usuario:                            *\n");
+    newUserInfo[0] = in.next();
+    in.nextLine();
+    System.out.println("*Contrasenia:                                  *\n");
+    newUserInfo[1] = in.nextLine();
+    System.out.println("*Edad:                                         *\n");
+    newUserInfo[2] = in.nextLine();
+    msc.addToUserList(newUserInfo);
+    slowPrint(millis, new String[] {
+      "************************************************",
+      "***********Usuario creado con exito!************",
+      "************************************************"});
+    wait(1492);
   }
 
   /**
@@ -135,34 +133,16 @@ public class Menus implements UIs {
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
   */
   private void showProfilesMenu(int millis,Scanner in) {
-    clrscm();
-    ArrayList<User> userList = msc.getUserList();
-    for (User i : userList) {
-      for (int j = 0; j < 6; j++) {
-        switch (j) {
-          case 2:
-            System.out.println(SEE_PROFILES_MENU[j] + i.getUserName());
-            break;
-          case 3:
-            System.out.println(SEE_PROFILES_MENU[j] + i.getAge());
-            break;
-          case 4:
-            System.out.println(SEE_PROFILES_MENU[j] + i.getUserRank());
-            break;
-          case 5:
-            System.out.println(SEE_PROFILES_MENU[j] + i.getQuantity());
-            break;
-          default:
-            System.out.println(SEE_PROFILES_MENU[j]);
-            break;
-        }
-        queue(millis);
+    clear();
+    System.out.println("************************************************");
+    for (User u : msc.getUserList()) {
+      slowPrint(millis,u.showInfo());
       }
-    }
-    for (int k = 6; k < 9; k++) {
-      System.out.println(SEE_PROFILES_MENU[k]);
-      queue(millis);
-    }
+    slowPrint(millis, new String[] {
+      "************************************************",
+      "*Volver                                 [ENTER]*",
+      "************************************************"});
+    in.nextLine();
     in.nextLine();
   }
 
@@ -172,57 +152,59 @@ public class Menus implements UIs {
   *<b>Post: </b>The menu is displayed.<br>
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
   */
-  private void showAddSongMenu(Scanner in) {
-    clrscm();
+  private void showAddSongMenu(int millis, Scanner in) {
+    clear();
     String[] newSongInfo = new String[4];
-    String newDurationStr;
     Duration newDurationObj = new Duration();
     Genre[] genres = Genre.values();
-    int k = 1;
-    for (int i = 0; i < ADD_SONG_MENU.length; i++) {
-      System.out.println(ADD_SONG_MENU[i]);
-      switch (i) {
-        case 2:
-          newSongInfo[0] = in.nextLine();
-          break;
-        case 3:
-          newSongInfo[1] = in.nextLine();
-          break;
-        case 4:
-          newSongInfo[2] = in.nextLine();
-          break;
-        case 5:
-          newSongInfo[3] = in.nextLine();
-          break;
-        case 6:
-          newDurationStr = in.nextLine();
-          newDurationObj.toIntFormat(newDurationStr);
-          break;
-        case 7:
-          int j = 0;
-          for (Genre g : genres) {
-            System.out.println("**[" + j + "] " + g );
-            j++;
-          }
-          break;
-        case 9:
-          newSongInfo[4] = in.nextLine();
-          break;
-        case 10:
-          for (User u : msc.getUserList()) {
-            System.out.println("**[" + k + "] " + u.getUserName());
-            k++;
-          }
-          k = in.nextInt() - 1;
-          in.nextLine();
-        default:
-          break;
-      }
+    System.out.println("************************************************");
+    wait(millis);
+    System.out.println("*******************Nueva cancion****************");
+    wait(millis);
+    System.out.println("*Nombre de la cancion:                         *\n");
+    newSongInfo[0] = in.nextLine();
+    System.out.println("*Artista:                                      *\n");
+    newSongInfo[1] = in.nextLine();
+    System.out.println("*Album:                                        *\n");
+    newSongInfo[2] = in.nextLine();
+    System.out.println("*Fecha de lanzamiento [DD/MM/AAAA]:            *\n");
+    newSongInfo[3] = in.nextLine();
+    System.out.println("*Duracion [MM:SS]:                             *\n");
+    newDurationObj.toIntFormat(in.nextLine());
+    System.out.println("*********************Generos********************");
+    wait(millis);
+
+    int j = 0;
+    for (Genre g : genres) {
+      System.out.println("**[" + j + "] " + g );
+      j++;
     }
+    System.out.println("*Introduzca el numero correspondiente al genero*");
+    wait(millis);
+    System.out.println("*de la cancion:                                *\n");
+    newSongInfo[4] = in.nextLine();
+    System.out.println("*Escoger un usuario que aniadira la cancion:   *\n");
+
+    int k = 1;
+    for (User u : msc.getUserList()) {
+      System.out.println("**[" + k + "] " + u.getUserName());
+      k++;
+    }
+    k = in.nextInt() - 1;
+    in.nextLine();
     if (msc.addToPool(newSongInfo,newDurationObj)) {
       msc.getUserList().get(k).modifyRank();
+      slowPrint(millis, new String[] {
+        "************************************************",
+        "************Cancion creada con exito!***********",
+        "************************************************"});
+    }else {
+      slowPrint(millis, new String[] {
+        "************************************************",
+        "**********Algo salio mal. Saliendo...***********",
+        "************************************************"});
     }
-    queue(1000);
+    wait(1492);
   }
 
   /**
@@ -233,40 +215,66 @@ public class Menus implements UIs {
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
   */
   private void showPoolMenu(int millis, Scanner in) {
-    clrscm();
-    ArrayList<Song> pool = msc.getPool();
-    for (Song song : pool) {
-      for (int i = 0; i < 8; i++) {
-        switch (i) {
-          case 2:
-            System.out.println(SEE_POOL_MENU[i] + song.getSongTitle());
-            break;
-          case 3:
-            System.out.println(SEE_POOL_MENU[i] + song.getArtist());
-            break;
-          case 4:
-            System.out.println(SEE_POOL_MENU[i] + song.getAlbum());
-            break;
-          case 5:
-            System.out.println(SEE_POOL_MENU[i] + song.getReleaseDate());
-            break;
-          case 6:
-            System.out.println(SEE_POOL_MENU[i] + song.getStringDuration());
-            break;
-          case 7:
-            System.out.println(SEE_POOL_MENU[i] + song.getGenre());
-          default:
-            System.out.println(SEE_POOL_MENU[i]);
-            break;
-        }
-        queue(millis);
-      }
+    clear();
+    for (Song s : msc.getPool()) {
+      slowPrint(millis, s.showInfo());
     }
-    for (int k = 8; k < 11; k++) {
-      System.out.println(SEE_POOL_MENU[k]);
-      queue(millis);
-    }
+    slowPrint(millis, new String[] {
+      "************************************************",
+      "*Aniadir a un playlist                      [1]*",
+      "*Volver                                 [ENTER]*",
+      "************************************************"});
+    int answer = in.nextInt();
     in.nextLine();
+
+    if (answer == 1 && !msc.getPlaylists().isEmpty()) {
+      addSongToPool(millis,in);
+    }else if (msc.getPlaylists().isEmpty()) {
+      slowPrint(millis, new String[] {
+        "****************No hay Playlists****************",
+        "*************Intente de nuevo luego*************",
+        "************************************************"});
+      wait(1492);
+    }else;
+  }
+
+  /**
+  *Adds a song to a playlist.<br>
+  *<b>Pre: </b><br>
+  *<b>Post: </b>The song is added to the playlist.<br>
+  *@param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
+  *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
+  */
+  private void addSongToPool(int millis, Scanner in) {
+    clear();
+    int k = 1;
+    System.out.println("**************Escoger una cancion***************");
+    for (Song ss : msc.getPool()) {
+      System.out.println("*[" + k + "] " + ss.getSongTitle());
+    }
+    int newSongIndex = in.nextInt() - 1;
+    in.nextLine();
+    k = 1;
+    System.out.println("*************Escoger una playlist***************");
+    for (Playlist pl : msc.getPlaylists()) {
+      System.out.println("**[" + k + "] " + pl.getPlaylistName() + " (" + pl.getSongs().size() + " canciones agregadas)");
+    }
+    int playlistIndex = in.nextInt() - 1;
+    in.nextLine();
+    boolean found = msc.getPlaylists().get(playlistIndex).addSong(msc.getPool().get(newSongIndex));
+    if (!found) {
+      slowPrint(millis, new String[] {
+        "************************************************",
+        "**********Cancion agregada con exito!***********",
+        "************************************************"});
+    }else {
+      slowPrint(millis, new String[] {
+        "************************************************",
+        "***La cancion ya existe dentro de la playlist***",
+        "*************Intente de nuevo luego*************",
+        "************************************************"});
+    }
+    wait(1492);
   }
 
   /**
@@ -277,7 +285,77 @@ public class Menus implements UIs {
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
   */
   private void showAddPlaylistsMenu(int millis, Scanner in) {
+    clear();
+    int type = 0;
+    int newUserIndex = 1;
+    String newPlaylistName = "";
+    System.out.println("************************************************");
+    wait(millis);
+    System.out.println("******************Nueva Playlist****************");
+    wait(millis);
+    System.out.println("*Nombre de la playlist:                        *");
+    newPlaylistName = in.nextLine();
+    in.nextLine();
+    System.out.println("*Tipo de Playlist:                             *");
+    slowPrint(millis, new String[] {
+      "[1]Privada",
+      "[2]Restringida",
+      "[3]Publica"});
+    type = in.nextInt();
+    switch (type) {
+      case 1:
+        System.out.println("*****************Playlist Privada***************");
+        wait(millis);
+        System.out.println("*Creada por:                                   *");
+        for (User u : msc.getUserList()) {
+          System.out.println("**[" + newUserIndex + "] " + u.getUserName());
+          newUserIndex++;
+        }
+        newUserIndex = in.nextInt() - 1;
+        msc.addToPlaylist(newUserIndex,newPlaylistName);
+        break;
+      case 2:
+        System.out.println("***************Playlist Restringida*************");
+        wait(millis);
+        System.out.println("*Usuario principal:                            *");
+        for (User u : msc.getUserList()) {
+          System.out.println("**[" + newUserIndex + "] " + u.getUserName());
+          newUserIndex++;
+        }
+        newUserIndex = in.nextInt() - 1;
+        msc.addToPlaylists(newPlaylistName,newUserIndex);
+        break;
+      case 3:
+        msc.addToPlaylists(newPlaylistName);
+        break;
+      default:
+        throw new IllegalStateException("Algo salio mal (" + type + " no es una seleccion valida)");
+    }
+    slowPrint(millis, new String[] {
+      "************************************************",
+      "************Playlist creada con exito!**********",
+      "************************************************"
+    });
+    wait(1492);
+  }
 
+  /**
+  *Shows the menu when sixth option is selected in main menu.<br>
+  *<b>Pre: </b> <br>
+  *<b>Post: </b>The menu is displayed.<br>
+  *@param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
+  *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
+  */
+  private void showPlaylistsMenu(int millis, Scanner in) {
+    for (Playlist p : msc.getPlaylists()) {
+      slowPrint(millis, p.showInfo());
+    }
+    slowPrint(millis, new String[] {
+      "************************************************",
+      "*Volver                                 [ENTER]*",
+      "************************************************"});
+    in.nextLine();
+    in.nextLine();
   }
 
   /**
@@ -286,7 +364,7 @@ public class Menus implements UIs {
   *<b>Post: </b>If no exception is thrown, the system waits the specified amount of millis
   *@param millis Integer that specifies the amount of ms for the console to wait. <b>Must be <i>an integer</i>.</b><br>
   */
-  public static void queue(int millis) {
+  public static void wait(int millis) {
     try {
       Thread.sleep(millis);
     }catch (Exception e) {
@@ -299,7 +377,7 @@ public class Menus implements UIs {
   *<b>Pre: </b>The system uses either CMD or Unix as their command line.<br>
   *<b>Post: </b>The console is cleared.<br>
   */
-  public static void clrscm() {
+  public static void clear() {
     try {
       final String OS = System.getProperty("os.name");
 
@@ -324,7 +402,7 @@ public class Menus implements UIs {
   public static void slowPrint(int millis, String[] CONST) {
     for (String s : CONST) {
       System.out.println(s);
-      queue(millis);
+      wait(millis);
     }
   }
 }

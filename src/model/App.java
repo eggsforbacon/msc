@@ -60,9 +60,9 @@ public class App {
       Song newSong = new Song(songInfo[0],songInfo[1],songInfo[2],songInfo[3],songDuration, Integer.parseInt(songInfo[4]));
       boolean exists = false;
       for (int s = 0; s < pool.size() && !exists; s++) {
-        exists = newSong.getSongTitle().equals(pool.get(s).getSongTitle());
+        exists = newSong.getSongTitle().toLowerCase().equals(pool.get(s).getSongTitle().toLowerCase());
         if (exists) {
-          exists = newSong.getArtist().equals(pool.get(s).getArtist());
+          exists = newSong.getArtist().toLowerCase().equals(pool.get(s).getArtist().toLowerCase());
         }
       }
       if (!exists) {
@@ -79,16 +79,42 @@ public class App {
   }
 
   /**
-  *Adds a playlist to the playlists.<br>
-  *@param playlist Playlist object to be added. <b>Must be <i>previously initialized</i>.</b><br>
+  *Adds a private playlist to the playlists.<br>
+  *@param newPlaylistName Name from the playlist to be added.<br>
+  *@param newUserIndex Position of the main user of the playlist. <b>Must be an <i>accessible position</i>.</b><br>
   */
-  public boolean addToPlaylists(Playlist playlist) {
+  public boolean addToPlaylist(int newUserIndex, String newPlaylistName) {
     if (playlists.size() < 20) {
-      playlists.add(playlist);
+      String primeUserName = userList.get(newUserIndex).getUserName();
+      Playlist newPlaylist = new PrivatePL(newPlaylistName,primeUserName);
+      playlists.add(newPlaylist);
       return true;
-    }
-    else {
-      return false;
-    }
+    }else return false;
+  }
+
+  /**
+  *Adds a restricted playlist to the playlists.<br>
+  *@param newPlaylistName Name from the playlist to be added.<br>
+  *@param newUserIndex Position of the main user of the playlist. <b>Must be an <i>accessible position</i>.</b><br>
+  */
+  public boolean addToPlaylists(String newPlaylistName, int newUserIndex) {
+    if (playlists.size() < 20) {
+      String primeUserName = userList.get(newUserIndex).getUserName();
+      Playlist newPlaylist = new RestrictedPL(newPlaylistName,primeUserName);
+      playlists.add(newPlaylist);
+      return true;
+    }else return false;
+  }
+
+  /**
+  *Adds a public playlist to the playlists.<br>
+  *@param newPlaylistName Name from the playlist to be added.<br>
+  */
+  public boolean addToPlaylists(String newPlaylistName) {
+    if (playlists.size() < 20) {
+      Playlist newPlaylist = new PublicPL(newPlaylistName);
+      playlists.add(newPlaylist);
+      return true;
+    }else return false;
   }
 }
