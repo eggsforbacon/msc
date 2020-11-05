@@ -25,14 +25,11 @@ public class PublicPL extends Playlist {
     String[] info = {
       "************************************************",
       "************************************************",
-      "*Nombre:                                       *",
-      super.getPlaylistName(),
-      "*Duracion:                                     *",
-      super.getPlaylistDuration(),
-      "*Generos:                                      *",
-      super.getPlaylistGenres(),
-      "*Rating:                                       *",
-      Double.toString(score),
+      "*Tipo de Playlist: Publica",
+      "*Nombre: " + super.getPlaylistName(),
+      "*Duracion: " + super.getPlaylistDuration(),
+      "*Generos: " + super.getPlaylistGenres(),
+      "*Rating: " + Double.toString(score),
       "************************************************",
       "*******************Canciones********************"};
       for(Song s : getSongs()) {

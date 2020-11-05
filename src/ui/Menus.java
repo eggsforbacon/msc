@@ -90,6 +90,7 @@ public class Menus implements UIs {
         showAddPlaylistsMenu(millis,in);
         break;
       case SHOW_PLAYLISTS:
+        showPlaylistsMenu(millis,in);
         break;
       default:
         throw new IllegalStateException("Valor inesperado: " + answer);
@@ -154,9 +155,10 @@ public class Menus implements UIs {
   */
   private void showAddSongMenu(int millis, Scanner in) {
     clear();
-    String[] newSongInfo = new String[4];
+    String[] newSongInfo = new String[5];
     Duration newDurationObj = new Duration();
     Genre[] genres = Genre.values();
+    in.nextLine();
     System.out.println("************************************************");
     wait(millis);
     System.out.println("*******************Nueva cancion****************");
@@ -251,6 +253,7 @@ public class Menus implements UIs {
     System.out.println("**************Escoger una cancion***************");
     for (Song ss : msc.getPool()) {
       System.out.println("*[" + k + "] " + ss.getSongTitle());
+      k++;
     }
     int newSongIndex = in.nextInt() - 1;
     in.nextLine();
@@ -293,9 +296,10 @@ public class Menus implements UIs {
     wait(millis);
     System.out.println("******************Nueva Playlist****************");
     wait(millis);
+    in.nextLine();
     System.out.println("*Nombre de la playlist:                        *");
     newPlaylistName = in.nextLine();
-    in.nextLine();
+    System.out.println(newPlaylistName);
     System.out.println("*Tipo de Playlist:                             *");
     slowPrint(millis, new String[] {
       "[1]Privada",
@@ -352,6 +356,8 @@ public class Menus implements UIs {
     }
     slowPrint(millis, new String[] {
       "************************************************",
+      "*Aniadir un nuevo rating                       *",
+      "*Aniadir un nuevo usuario                      *",
       "*Volver                                 [ENTER]*",
       "************************************************"});
     in.nextLine();

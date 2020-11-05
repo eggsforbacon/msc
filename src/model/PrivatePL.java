@@ -24,14 +24,11 @@ public class PrivatePL extends Playlist {
     String[] info = {
       "************************************************",
       "************************************************",
-      "*Nombre:                                       *",
-      super.getPlaylistName(),
-      "*Duracion:                                     *",
-      super.getPlaylistDuration(),
-      "*Generos:                                      *",
-      super.getPlaylistGenres(),
-      "*Usuario Principal:                            *",
-      primeUserName,
+      "*Tipo de Playlist: Privada",
+      "*Nombre: " + super.getPlaylistName(),
+      "*Duracion: " + super.getPlaylistDuration(),
+      "*Generos: " + super.getPlaylistGenres(),
+      "*Usuario Principal: " + primeUserName,
       "************************************************",
       "*******************Canciones********************"};
     for(Song s : getSongs()) {

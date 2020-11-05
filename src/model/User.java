@@ -47,22 +47,18 @@ public class User {
 
   public String[] showInfo() {
     return new String[] {
-            "************************************************",
-            "**Nombre de Usuario: ",
-            userName,
-            "**Edad: ",
-            Integer.toString(age),
-            "**Rango: ",
-            userRank,
-            "**Canciones compartidas: ",
-            Integer.toString(quantity)
-    };
+      "************************************************",
+      "**Nombre de Usuario: " + userName,
+      "**Edad: " + Integer.toString(age),
+      "**Rango: " + userRank,
+      "**Canciones compartidas: " + Integer.toString(quantity)};
   }
 
   //Getters
 
   /**
-  *@return The current username.<br>*/
+  *@return The current username.<br>
+  */
   public String getUserName() {
     return userName;
   }

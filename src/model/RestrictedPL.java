@@ -25,14 +25,11 @@ public class RestrictedPL extends Playlist {
     String[] info = {
       "************************************************",
       "************************************************",
-      "*Nombre:                                       *",
-      super.getPlaylistName(),
-      "*Duracion:                                     *",
-      super.getPlaylistDuration(),
-      "*Generos:                                      *",
-      super.getPlaylistGenres(),
-      "*Usuario Principal:                            *",
-      primeUserName + "(" + entitledUsersID.size() + " usuarios activos)",
+      "*Tipo de Playlist: Restringida",
+      "*Nombre: " + super.getPlaylistName(),
+      "*Duracion: " + super.getPlaylistDuration(),
+      "*Generos: " + super.getPlaylistGenres(),
+      "*Usuario Principal: " + primeUserName + "(" + entitledUsersID.size() + " usuarios activos)",
       "************************************************",
       "*******************Canciones********************"};
       for(Song s : getSongs()) {

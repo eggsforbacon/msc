@@ -35,22 +35,12 @@ public class Song {
   public String[] showInfo() {
     return new String[] {
       "************************************************",
-      "**Titulo: ",
-      songTitle,
-      "**Artista: ",
-      artist,
-      "**Album: ",
-      album,
-      "**Fecha de Lanzamiento: ",
-      releaseDate,
-      "**Duracion: ",
-      songDuration.toString(),
-      "**Genero: ",
-      genre,
-      "************************************************",
-      "*Aniadir a un playlist                      [1]*",
-      "*Volver                                 [ENTER]*",
-      "************************************************"};
+      "**Titulo: " + songTitle,
+      "**Artista: " + artist,
+      "**Album: " + album,
+      "**Fecha de Lanzamiento: " + releaseDate,
+      "**Duracion: " + songDuration.toString(),
+      "**Genero: " + genre};
   }
 
   //Getters
