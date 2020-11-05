@@ -35,6 +35,10 @@ public class PrivatePL extends Playlist {
       info = Arrays.copyOf(info,info.length + 1);
       info[info.length - 1] = "*" + s.getSongTitle() + "\n";
     }
+    if (getSongs().size() == 0) {
+      info = Arrays.copyOf(info,info.length + 1);
+      info[info.length - 1] = "***********No hay canciones todavia*************";
+    }
     return info;
   }
 }

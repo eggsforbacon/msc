@@ -62,7 +62,7 @@ public class App {
       for (int s = 0; s < pool.size() && !exists; s++) {
         exists = newSong.getSongTitle().toLowerCase().equals(pool.get(s).getSongTitle().toLowerCase());
         if (exists) {
-          exists = newSong.getArtist().toLowerCase().equals(pool.get(s).getArtist().toLowerCase());
+          exists = (newSong.getArtist().toLowerCase().equals(pool.get(s).getArtist().toLowerCase())) && (newSong.getAlbum().toLowerCase().equals(pool.get(s).getAlbum().toLowerCase()));
         }
       }
       if (!exists) {

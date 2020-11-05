@@ -36,6 +36,10 @@ public class PublicPL extends Playlist {
         info = Arrays.copyOf(info,info.length + 1);
         info[info.length - 1] = "*" + s.getSongTitle() + "\n";
       }
+      if (getSongs().size() == 0) {
+        info = Arrays.copyOf(info,info.length + 1);
+        info[info.length - 1] = "***********No hay canciones todavia*************";
+      }
     return info;
   }
 
@@ -45,16 +49,16 @@ public class PublicPL extends Playlist {
   *<b>Post: </b>The score is modified.<br>
   *@param newScore Double that carries the score to be added to the average score. <b>Must be between <i>1 and 5</i>.</b><br>
   */
-  public boolean modifyScore(double newScore) {
+  public String modifyScore(double newScore) {
     if (newScore <= 5 && newScore >= 1) {
       scores.add(newScore);
       for (double d: scores) {
         score += d;
       }
       score /= scores.size();
-      return true;
+      return "************Puntaje aniadido con exito**********";
     }
-    else return false;
+    else return "********************Error***********************";
   }
 
   //Getters

@@ -10,6 +10,7 @@ abstract public class Playlist {
   private Duration playlistDuration;
   private ArrayList<String> playlistGenres = new ArrayList<>();
   private boolean empty = true;
+  private String identity;
 
   private ArrayList<Song> songs = new ArrayList<>();
 
@@ -22,6 +23,8 @@ abstract public class Playlist {
     this.playlistName = playlistName;
     playlistDuration = new Duration();
     playlistGenres.add("UNKNOWN");
+    identity = "";
+    initID();
   }
 
   /**
@@ -57,6 +60,22 @@ abstract public class Playlist {
   */
   abstract public String[] showInfo();
 
+  /**
+  *Generates auniquue 10 digit alphanumeric ID for the playlist.<br>
+  *<b>Pre: </b><br>
+  *<b>Post: </b>The ID is generated.<br>
+  */
+  private void initID() {
+    Random ran = new Random();
+    char[] alphabeth = {
+      'A','B','C','D','E','F','G','H','I','J','K','L','M',
+      'N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+    for (int i = 0; i < 5; i++) {
+      identity += alphabeth[ran.nextInt(26)];
+      identity += Integer.toString(ran.nextInt(10));
+    }
+  }
+
   //Getters
 
   public String getPlaylistName() {
@@ -77,5 +96,9 @@ abstract public class Playlist {
 
   public ArrayList<Song> getSongs() {
     return songs;
+  }
+
+  public String getIdentity() {
+    return identity;
   }
 }

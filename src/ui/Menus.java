@@ -224,20 +224,20 @@ public class Menus implements UIs {
     slowPrint(millis, new String[] {
       "************************************************",
       "*Aniadir a un playlist                      [1]*",
-      "*Volver                                 [ENTER]*",
+      "*Volver                                     [0]*",
       "************************************************"});
     int answer = in.nextInt();
     in.nextLine();
 
     if (answer == 1 && !msc.getPlaylists().isEmpty()) {
       addSongToPool(millis,in);
-    }else if (msc.getPlaylists().isEmpty()) {
+    } else if (answer == 1 && msc.getPlaylists().isEmpty()) {
       slowPrint(millis, new String[] {
         "****************No hay Playlists****************",
         "*************Intente de nuevo luego*************",
         "************************************************"});
       wait(1492);
-    }else;
+    }
   }
 
   /**
@@ -351,17 +351,63 @@ public class Menus implements UIs {
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
   */
   private void showPlaylistsMenu(int millis, Scanner in) {
+    clear();
+    String modPlayID;
     for (Playlist p : msc.getPlaylists()) {
       slowPrint(millis, p.showInfo());
     }
     slowPrint(millis, new String[] {
       "************************************************",
-      "*Aniadir un nuevo rating                       *",
-      "*Aniadir un nuevo usuario                      *",
-      "*Volver                                 [ENTER]*",
+      "*Aniadir un nuevo rating                    [1]*",
+      "*Aniadir un nuevo usuario                   [2]*",
+      "*Volver                                     [0]*",
       "************************************************"});
+    int answer = in.nextInt();
     in.nextLine();
-    in.nextLine();
+    if (answer == 1) {
+      System.out.println("**************Escoger una playlist**************");
+      System.out.println("***Digitar el codigo exactamente como aparece***");
+      for (Playlist p : msc.getPlaylists()) {
+        if (p instanceof PublicPL) {
+          System.out.println("**[" + p.getIdentity() + "] " + p.getPlaylistName());
+        }
+      }
+      modPlayID = in.nextLine();
+      in.nextLine();
+      System.out.println("*Puntaje (entre 1 y 5):                        *");
+      double newScore = in.nextDouble();
+      for (Playlist p : msc.getPlaylists()) {
+        if (p.getIdentity().toUpperCase().equals(modPlayID.toUpperCase())) {
+          PublicPL pl = (PublicPL)p;
+          pl.modifyScore(newScore);
+        }
+      }
+      wait(1500);
+      showPlaylistsMenu(millis, in);
+    } else if (answer == 2) {
+      System.out.println("**************Escoger una playlist**************");
+      for (Playlist p : msc.getPlaylists()) {
+        if (p instanceof RestrictedPL) {
+          System.out.println("**[" + p.getIdentity() + "] " + p.getPlaylistName());
+        }
+      }
+      modPlayID = in.nextLine();
+      in.nextLine();
+      int i = 1;
+      System.out.println("***************Escoger un usuario***************");
+      for (User u : msc.getUserList()) {
+        System.out.println("**[" + i + "] " + u.getUserName());
+        i++;
+      }
+      int userAddedIndex = in.nextInt() - 1;
+      in.nextLine();
+      for (Playlist p : msc.getPlaylists()) {
+        if (p.getIdentity().toUpperCase().equals(modPlayID.toUpperCase())) {
+          RestrictedPL rp = (RestrictedPL)p;
+          rp.addUser();
+        }
+      }
+    }
   }
 
   /**
