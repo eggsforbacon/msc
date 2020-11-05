@@ -26,7 +26,7 @@ public class User {
     this.password = password;
     this.age = age;
     userRank = RANKS[0];
-    generateID();
+    //generateID();
   }
 
   /**
