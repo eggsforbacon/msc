@@ -50,6 +50,8 @@ public class PublicPL extends Playlist {
   *@param newScore Double that carries the score to be added to the average score. <b>Must be between <i>1 and 5</i>.</b><br>
   */
   public String modifyScore(double newScore) {
+    double temp = score;
+    score = 0;
     if (newScore <= 5 && newScore >= 1) {
       scores.add(newScore);
       for (double d: scores) {
@@ -58,7 +60,10 @@ public class PublicPL extends Playlist {
       score /= scores.size();
       return "************Puntaje aniadido con exito**********";
     }
-    else return "********************Error***********************";
+    else {
+      score = temp;
+      return "********************Error***********************";
+    }
   }
 
   //Getters

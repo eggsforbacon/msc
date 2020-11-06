@@ -40,7 +40,7 @@ abstract public class Playlist {
     }
     boolean found = false;
     for (int i = 0; i < songs.size() && !found; i++) {
-      found = songs.get(i).getSongTitle().equals(song.getSongTitle());
+      found = (songs.get(i).getSongTitle().equals(song.getSongTitle())) && (songs.get(i).getArtist().equals(song.getArtist()));
       if (found) {
         found = songs.get(i).getArtist().equals(song.getArtist());
       }
@@ -50,7 +50,7 @@ abstract public class Playlist {
       playlistGenres.add(song.getGenre());
       playlistDuration.updateDuration(song.getSongDuration());
     }
-    return !found;
+    return found;
   }
 
   /**
@@ -70,7 +70,7 @@ abstract public class Playlist {
     char[] alphabeth = {
       'A','B','C','D','E','F','G','H','I','J','K','L','M',
       'N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 2; i++) {
       identity += alphabeth[ran.nextInt(26)];
       identity += Integer.toString(ran.nextInt(10));
     }

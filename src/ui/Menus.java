@@ -379,13 +379,15 @@ public class Menus implements UIs {
       for (Playlist p : msc.getPlaylists()) {
         if (p.getIdentity().toUpperCase().equals(modPlayID.toUpperCase())) {
           PublicPL pl = (PublicPL)p;
-          pl.modifyScore(newScore);
+          System.out.println(pl.modifyScore(newScore));
         }
       }
       wait(1500);
       showPlaylistsMenu(millis, in);
-    } else if (answer == 2) {
+    }
+    else if (answer == 2) {
       System.out.println("**************Escoger una playlist**************");
+      System.out.println("***Digitar el codigo exactamente como aparece***");
       for (Playlist p : msc.getPlaylists()) {
         if (p instanceof RestrictedPL) {
           System.out.println("**[" + p.getIdentity() + "] " + p.getPlaylistName());
@@ -402,7 +404,7 @@ public class Menus implements UIs {
       int userAddedIndex = in.nextInt() - 1;
       in.nextLine();
       for (Playlist p : msc.getPlaylists()) {
-        if (p.getIdentity().toUpperCase().equals(modPlayID.toUpperCase())) {
+        if (p.getIdentity().equals(modPlayID)) {
           RestrictedPL rp = (RestrictedPL)p;
           rp.addUser();
         }

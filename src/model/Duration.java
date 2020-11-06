@@ -53,16 +53,25 @@ public class Duration {
   */
   public String toString() {
     if (hours != 0) {
-      format += hours + ":" + minutes + ":" + seconds;
+      format += hours + ":" + minutes + ":" + secsString(seconds);
     }
     else if (minutes != 0) {
-      format += minutes + ":" + seconds;
+      format += minutes + ":" + secsString(seconds);
     }
     else {
-      format += seconds;
+      format += secsString(seconds);
     }
     if (seconds == 0) format += "0";
-    return format;
+    String durationStr = format;
+    format = "";
+    return durationStr;
+  }
+
+  /***/
+  private String secsString(int seconds) {
+    if (seconds > 0 && seconds < 10) {
+      return "0" + seconds;
+    } else return "" + seconds;
   }
 
   /**

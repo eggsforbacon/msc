@@ -30,7 +30,7 @@ public class RestrictedPL extends Playlist {
       "*Nombre: " + super.getPlaylistName(),
       "*Duracion: " + super.getPlaylistDuration(),
       "*Generos: " + super.getPlaylistGenres(),
-      "*Usuario Principal: " + primeUserName + "(" + (entitledUsersID.size() + BIAS) + " usuarios activos)",
+      "*Usuario Principal: " + primeUserName + " (" + (entitledUsersID.size() + BIAS) + " usuarios activos)",
       "************************************************",
       "*******************Canciones********************"};
       for(Song s : getSongs()) {
@@ -49,8 +49,8 @@ public class RestrictedPL extends Playlist {
   *<b>Pre: </b>There are less than 5 users.<br>
   *<b>Post: </b>The user is added.<br>
   */
-  public void addUser() {
-    if (BIAS < 5) {
+  public void addUser(User user) {
+    if (BIAS < 5 && ) {
       BIAS++;
     }
   }
