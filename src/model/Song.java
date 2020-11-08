@@ -2,8 +2,9 @@ package model;
 import ui.*;
 
 /**
-*Class that defines the blueprint of a Song object and all its functionalities.<br>
-*@author Samuel Hernandez / Zac
+*Class that defines the blueprint of a Song object and all its functionalities and characteristics.<br>
+*@author Samuel Hernandez / Zac<br>
+*@since 0.2<br>
 */
 public class Song {
   private Genre[] genres = Genre.values();
@@ -21,6 +22,7 @@ public class Song {
   *@param artist String containing the song's artist. <b>Must not be <i>null or blank</i>.</b><br>
   *@param album String containing the song's album. <b>Must not be <i>null or blank</i>.</b><br>
   *@param releaseDate String containing the song's release date. <b>Must not be <i>null or blank</i>.</b><br>
+  *@param songDuration The duration for the song. <b>Must be of type <i>Duration</i>.</b><br>
   *@param index Integer containing the genre's index. <b>Must be <i>positive</i> and less than the length of the array <i>GENRES</i>.</b><br>
   */
   public Song(String songTitle, String artist, String album, String releaseDate, Duration songDuration, int index) {
@@ -32,6 +34,11 @@ public class Song {
     genre = genres[index].name();
   }
 
+  /**
+  *Shows the information of a specific song.<br>
+  *<b>Pre: </b><br>
+  *<b>Post: </b>The information is returned.<br>
+  */
   public String[] showInfo() {
     return new String[] {
       "************************************************",
@@ -88,7 +95,8 @@ public class Song {
   }
 
   /**
-  *@return The song's genre.<br>*/
+  *@return The song's genre.<br>
+  */
   public String getGenre() {
     return genre;
   }

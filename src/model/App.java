@@ -2,8 +2,10 @@ package model;
 import java.util.*;
 
 /**
-*Class that stores the Song Pool, User list, and playlists.<br>
-*@author Samuel Hernandez / Zac
+*Class that represents the scheme the MSC will follow, as well as its operations, and methods<br>
+*to add users, songs, and playlists.<br>
+*@author Samuel Hernandez / Zac<br>
+*@since 0.2<br>
 */
 public class App {
 
@@ -36,7 +38,7 @@ public class App {
   //Adders
 
   /**
-  *Adds a User.<br>
+  *Adds a User to the app.<br>
   *@param userInfo The information for a user object to be added. <b>Must be of size <i>3</i>.</b><br>
   */
   public boolean addToUserList(String[] userInfo) {
@@ -51,7 +53,7 @@ public class App {
   }
 
   /**
-  *Adds a Song.<br>
+  *Adds a Song to the app.<br>
   *@param songInfo String array with the info of the new song. <b>Must be of size <i>4</i>.</b><br>
   *@param songDuration Duration object that is the duration of the song. <b>Must be <i>previously initialized</i>.</b><br>
   */
@@ -79,7 +81,7 @@ public class App {
   }
 
   /**
-  *Adds a private playlist to the playlists.<br>
+  *Adds a private playlist to the playlists in the app.<br>
   *@param newPlaylistName Name from the playlist to be added.<br>
   *@param newUserIndex Position of the main user of the playlist. <b>Must be an <i>accessible position</i>.</b><br>
   */
@@ -93,7 +95,7 @@ public class App {
   }
 
   /**
-  *Adds a restricted playlist to the playlists.<br>
+  *Adds a restricted playlist to the playlists in the app.<br>
   *@param newPlaylistName Name from the playlist to be added.<br>
   *@param newUserIndex Position of the main user of the playlist. <b>Must be an <i>accessible position</i>.</b><br>
   */
@@ -107,7 +109,7 @@ public class App {
   }
 
   /**
-  *Adds a public playlist to the playlists.<br>
+  *Adds a public playlist to the playlists in the app.<br>
   *@param newPlaylistName Name from the playlist to be added.<br>
   */
   public boolean addToPlaylists(String newPlaylistName) {

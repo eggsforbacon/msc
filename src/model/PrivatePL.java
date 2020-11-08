@@ -2,20 +2,28 @@ package model;
 import java.util.*;
 
 /**
-*Class that defines the private playlist specifications.<br>
-*@author Samuel Hernandez / Zac
+*Specifies on how a the private variant of Playlist should behave. User verification when adding songs<br>
+*is pending and will be added in future versions.<br>
+*@author Samuel Hernandez / Zac<br>
+*@since 0.3<br>
+*@see Playlist Playlist<br>
 */
 public class PrivatePL extends Playlist {
 
   private String primeUserName;
 
+  /**
+  *The specific constructor of the class.<br>
+  *@param playlistName The name of the playlist.<br>
+  *@see model.Playlist#Playlist(String) Constructor in parent<br>
+  */
   public PrivatePL(String playlistName, String primeUserName) {
     super(playlistName);
     this.primeUserName = primeUserName;
   }
 
   /**
-  *Returns specific info of the playlist object
+  *Returns specific info of the private playlist object.<br>
   *<b>Pre: </b><br>
   *<b>Post: </b>The information is returned.<br>
   */

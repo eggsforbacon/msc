@@ -2,8 +2,10 @@ package model;
 import java.security.SecureRandom;
 
 /**
-*Class that defines the blueprint for a User object and all its functionalities.<br>
-*@author Samuel Hernandez / Zac
+*Class that defines the blueprint for a User object and all its functionalities and atributes.<br>
+*@author Samuel Hernandez / Zac<br>
+*@since 0.2<br>
+*@version 1.0<br>
 */
 public class User {
   private final String[] RANKS = {"Newbie","Little Contributor","Mild Contributor","Star Contributor"};
@@ -26,11 +28,11 @@ public class User {
     this.password = password;
     this.age = age;
     userRank = RANKS[0];
-    //generateID();
   }
 
   /**
-  *Generates a unique ID for each user.<br>
+  *Generates a unique ID for each user. This functionality is meant to be used in future versions to<br>
+  *add user validation to certain parts of the app. It is not used in the current version of the program.<br>
   *<b>Pre: </b><br>
   *<b>Post: </b>The ID is generated.<br>
   */
@@ -45,6 +47,11 @@ public class User {
     ID = sb.toString();
   }
 
+  /**
+  *Shows the information of a specific user.<br>
+  *<b>Pre: </b><br>
+  *<b>Post: </b>The information is returned.<br>
+  */
   public String[] showInfo() {
     return new String[] {
       "************************************************",
@@ -96,29 +103,6 @@ public class User {
   */
   public String getID() {
     return ID;
-  }
-
-//Setters
-
-  /**
-  *@param rankIndex The index of the rank to be set. <b>Must be a <i>positive integer lesser or equal to 3</i>.</b><br>
-  */
-  public void setUserRank(int rankIndex) {
-    userRank = RANKS[rankIndex];
-  }
-
-  /**
-  *@param userName The username to be set to.<br>
-  */
-  public void setUserName(String userName) {
-    this.userName = userName;
-  }
-
-  /**
-  *@param password The password to be set to.<br>
-  */
-  public void setPassword(String password) {
-    this.password = password;
   }
 
   /**

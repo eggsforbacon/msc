@@ -2,8 +2,9 @@ package model;
 import java.util.*;
 
 /**
-*Allows dinamic durations and operations with them.<br>
-*@author Samuel Hernandez / Zac
+*Defines the behavior of the durations of the playlists and song, as well as methods associated to it.<br>
+*@author Samuel Hernandez / Zac<br>
+*@since 0.13<br>
 */
 public class Duration {
   private int hours;
@@ -22,7 +23,7 @@ public class Duration {
   }
 
   /**
-  *Converts a string to the correct format.<br>
+  *Assigns the hours, minutes, and seconds according to the given string.<br>
   *<b>Pre: </b>The string is correctly formated.<br>
   *<b>Post: </b>The string is stored as sepatrate integer values.<br>
   *@param string String to be converted.<br>
@@ -53,13 +54,13 @@ public class Duration {
   */
   public String toString() {
     if (hours != 0) {
-      format += hours + ":" + minutes + ":" + secsString(seconds);
+      format += hours + ":" + minutes + ":" + secsString();
     }
     else if (minutes != 0) {
-      format += minutes + ":" + secsString(seconds);
+      format += minutes + ":" + secsString();
     }
     else {
-      format += secsString(seconds);
+      format += secsString();
     }
     if (seconds == 0) format += "0";
     String durationStr = format;
@@ -67,15 +68,19 @@ public class Duration {
     return durationStr;
   }
 
-  /***/
-  private String secsString(int seconds) {
+  /**
+  *Checks if a 0 is need in front of the seconds
+  *<b>Pre: </b><br>
+  *<b>Post: </b>The seconds are correctly formated.<br>
+  */
+  private String secsString() {
     if (seconds > 0 && seconds < 10) {
       return "0" + seconds;
     } else return "" + seconds;
   }
 
   /**
-  *Adds another Duration to the class' atributes.<br>
+  *Updates the duration by adding the current duration with a given duration.<br>
   *<b>Pre: </b><br>
   *<b>Post: </b>The duration is updated.<br>
   *@param duration Duration object to be added. <b>Must be <i>initialized</i>.</b><br>

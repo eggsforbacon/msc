@@ -3,8 +3,11 @@ import model.*;
 import java.util.*;
 
 /**
-*Handles most of the user interface, which are the menus displayed.<br>
-*@author Samuel Hernandez / Zac
+*This class handless user interaction via a menu with different options that represent a functionality<br>
+*of the app. Implements the UIs interface.<br>
+*@author Samuel Hernandez / Zac.<br>
+*@since 0.1 (Then called <i>MainMenu</i>, renamed to <i>Menus</i> in version 0.3)<br>
+*@see UIs UIs Interface<br>
 */
 public class Menus implements UIs {
 
@@ -18,10 +21,10 @@ public class Menus implements UIs {
   private App msc = new App();
 
   /**
-  *Displays the welcome logo on screen. <br>
-  *<b>Pre: </b> <br>
+  *Displays the welcome logo on screen, using the app logo as specified in the UIs class. <br>
+  *<b>Pre: </b><br>
   *<b>Post: </b>The menu is displayed.<br>
-  *@param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
+  *@param millis Integer that describes the amount of milliseconds the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
   */
   private void welcomeLogo(int millis, Scanner in) {
@@ -38,7 +41,8 @@ public class Menus implements UIs {
   /**
   *Starts the program.<br>
   *<b>Pre: </b><br>
-  *<b>Post: </b>The program is started succesfully.<br>
+  *<b>Post: </b>The program is started succesfully.
+  *@param millis Integer that describes the amount of milliseconds the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
   */
   public void startProgram(int millis) {
     Scanner in = new Scanner(System.in);
@@ -49,10 +53,10 @@ public class Menus implements UIs {
   }
 
   /**
-  *Displays the main menu. <br>
-  *<b>Pre: </b> <br>
+  *Displays the main menu, using the string array declared in the UIs interface.<br>
+  *<b>Pre: </b><br>
   *<b>Post: </b>The menu is displayed.<br>
-  *@param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
+  *@param millis Integer that describes the amount of milliseconds the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
   */
   private void showMenu(int millis, Scanner in) {
@@ -62,12 +66,13 @@ public class Menus implements UIs {
   }
 
   /**
-  *Shows a menu or another depending on user input in the main menu.<br>
+  *Decides on which method to execute according to the user input given in showMenu.<br>
   *<b>Pre: </b><br>
   *<b>Post: </b>The correct menu is called and showed.<br>
   *@param answer Integer that handles the decision of the user.<br>
   *@param  in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
-  *@param  millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
+  *@param  millis Integer that describes the amount of milliseconds the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
+  *@see #showMenu(int,Scanner) showMenu<br>
   */
   private void switchMainMenu(int answer, Scanner in, int millis) {
     switch (answer) {
@@ -98,11 +103,12 @@ public class Menus implements UIs {
   }
 
   /**
-  *Shows the menu when first option is selected in main menu.<br>
+  *Called when the first option is selected in showMenu, allowing the user to add a new user to the app.<br>
   *<b>Pre: </b> <br>
   *<b>Post: </b>The menu is displayed.<br>
-  *@param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
+  *@param millis Integer that describes the amount of milliseconds the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
+  *@see #showMenu(int,Scanner) showMenu method
   */
   private void showAddUserMenu(int millis, Scanner in) {
     clear();
@@ -127,11 +133,13 @@ public class Menus implements UIs {
   }
 
   /**
-  *Shows the menu when second option is selected in main menu.<br>
-  *<b>Pre: </b> <br>
+  *Called when the second option is selected in showMenu, allowing the app to display every user in<br>
+  *it with its current atributes.<br>
+  *<b>Pre: </b><br>
   *<b>Post: </b>The menu is displayed.<br>
-  *@param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
+  *@param millis Integer that describes the amount of milliseconds the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
+  *@see #showMenu(int,Scanner) showMenu method
   */
   private void showProfilesMenu(int millis,Scanner in) {
     clear();
@@ -148,16 +156,17 @@ public class Menus implements UIs {
   }
 
   /**
-  *Shows the menu when third option is selected in main menu.<br>
+  *Called when the third option is selected in showMenu, allowing the user to add a new song to the app.<br>
   *<b>Pre: </b> <br>
   *<b>Post: </b>The menu is displayed.<br>
+  *@param millis Integer that describes the amount of milliseconds the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
+  *@see #showMenu(int,Scanner) showMenu method
   */
   private void showAddSongMenu(int millis, Scanner in) {
     clear();
     String[] newSongInfo = new String[5];
     Duration newDurationObj = new Duration();
-    Genre[] genres = Genre.values();
     in.nextLine();
     System.out.println("************************************************");
     wait(millis);
@@ -177,7 +186,7 @@ public class Menus implements UIs {
     wait(millis);
 
     int j = 0;
-    for (Genre g : genres) {
+    for (Genre g : Genre.values()) {
       System.out.println("**[" + j + "] " + g );
       j++;
     }
@@ -210,11 +219,13 @@ public class Menus implements UIs {
   }
 
   /**
-  *Shows the menu when fourth option is selected in main menu.<br>
-  *<b>Pre: </b> <br>
+  *Called when the fourth option is selected in showMenu, allowing the app to display every song in<br>
+  *it with its current atributes.<br>
+  *<b>Pre: </b><br>
   *<b>Post: </b>The menu is displayed.<br>
-  *@param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
+  *@param millis Integer that describes the amount of milliseconds the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
+  *@see #showMenu(int,Scanner) showMenu method
   */
   private void showPoolMenu(int millis, Scanner in) {
     clear();
@@ -241,11 +252,13 @@ public class Menus implements UIs {
   }
 
   /**
-  *Adds a song to a playlist.<br>
+  *Transitory method that adds an existing song in the shared pool to a specified playlist.<br>
   *<b>Pre: </b><br>
   *<b>Post: </b>The song is added to the playlist.<br>
-  *@param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
+  *@param millis Integer that describes the amount of milliseconds the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
+  *@see Playlist#addSong(Song)<br>
+  *@see App#addToPool(String[], Duration)
   */
   private void addSongToPool(int millis, Scanner in) {
     clear();
@@ -281,11 +294,12 @@ public class Menus implements UIs {
   }
 
   /**
-  *Shows the menu when fifth option is selected in main menu.<br>
+  *Called when the fifth option is selected in showMenu, allowing the user to add a playlist to the app.<br>
   *<b>Pre: </b> <br>
   *<b>Post: </b>The menu is displayed.<br>
-  *@param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
+  *@param millis Integer that describes the amount of milliseconds the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
+  *@see #showMenu(int,Scanner) showMenu method
   */
   private void showAddPlaylistsMenu(int millis, Scanner in) {
     clear();
@@ -344,11 +358,13 @@ public class Menus implements UIs {
   }
 
   /**
-  *Shows the menu when sixth option is selected in main menu.<br>
+  *Called when the sixth option is selected in showMenu, allowing the app to show every playlist in<br>
+  *the app with their current atributes.<br>
   *<b>Pre: </b> <br>
   *<b>Post: </b>The menu is displayed.<br>
-  *@param millis Integer that describes the amount of ms the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
+  *@param millis Integer that describes the amount of milliseconds the console will wait per line. <b>Must be of type <i>int</i>.</b><br>
   *@param in Scanner object that receives user input. <b>Must be an already initialized <i>Scanner</i> object.</b><br>
+  *@see #showMenu(int,Scanner) showMenu method
   */
   private void showPlaylistsMenu(int millis, Scanner in) {
     clear();
@@ -373,7 +389,6 @@ public class Menus implements UIs {
         }
       }
       modPlayID = in.nextLine();
-      in.nextLine();
       System.out.println("*Puntaje (entre 1 y 5):                        *");
       double newScore = in.nextDouble();
       for (Playlist p : msc.getPlaylists()) {
@@ -394,7 +409,6 @@ public class Menus implements UIs {
         }
       }
       modPlayID = in.nextLine();
-      in.nextLine();
       int i = 1;
       System.out.println("***************Escoger un usuario***************");
       for (User u : msc.getUserList()) {
@@ -402,21 +416,22 @@ public class Menus implements UIs {
         i++;
       }
       int userAddedIndex = in.nextInt() - 1;
-      in.nextLine();
       for (Playlist p : msc.getPlaylists()) {
         if (p.getIdentity().equals(modPlayID)) {
           RestrictedPL rp = (RestrictedPL)p;
           rp.addUser();
         }
       }
+      wait(1500);
+      showPlaylistsMenu(millis, in);
     }
   }
 
   /**
-  *Probes the program to wait for an x amount of ms.<br>
+  *Probes the console to wait for an given amount of milliseconds.<br>
   *<b>Pre: </b><br>
   *<b>Post: </b>If no exception is thrown, the system waits the specified amount of millis
-  *@param millis Integer that specifies the amount of ms for the console to wait. <b>Must be <i>an integer</i>.</b><br>
+  *@param millis Integer that specifies the amount of milliseconds for the console to wait. <b>Must be <i>an integer</i>.</b><br>
   */
   public static void wait(int millis) {
     try {
@@ -447,10 +462,10 @@ public class Menus implements UIs {
   }
 
   /**
-  *Loops through a string constant and prints it with a given delay.<br>
+  *Loops through a string array and prints it with a given delay.<br>
   *<b>Pre: </b> <br>
-  *<b>Post: </b>The given array si printed with the delay per line.<br>
-  *@param millis Integer that represents the delay in ms. <b>Must be of type <i>int</i>.</b><br>
+  *<b>Post: </b>The given array is printed with the delay, applying the delay line by line.<br>
+  *@param millis Integer that represents the delay in milliseconds. <b>Must be of type <i>int</i>.</b><br>
   *@param CONST String array containing the lines to be printed. <b>Must not be of length <i>0 or lower</i>.</b><br>
   */
   public static void slowPrint(int millis, String[] CONST) {

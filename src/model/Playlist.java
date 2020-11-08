@@ -2,8 +2,13 @@ package model;
 import java.util.*;
 
 /**
-*Class that inherits to its public, restricted and private variants.<br>
-*@author Samuel Hernandez / Zac
+*Represents the general atributes and abilities a playlist object has in the project context.<br>
+*This class inherits its Public, Restricted and Private variants.<br>
+*@author Samuel Hernandez / Zac<br>
+*@since 0.3<br>
+*@see PublicPL • Public Playlist<br>
+*@see RestrictedPL Restricted Playlist<br>
+*@see PublicPL Public Playlist<br>
 */
 abstract public class Playlist {
   private String playlistName;
@@ -14,10 +19,9 @@ abstract public class Playlist {
 
   private ArrayList<Song> songs = new ArrayList<>();
 
-  Genre[] genres = Genre.values();
-
   /**
   *General constructor.<br>
+  *@param playlistName The name of the playlist.<br>
   */
   public Playlist(String playlistName) {
     this.playlistName = playlistName;
@@ -32,6 +36,7 @@ abstract public class Playlist {
   *<b>Pre: </b>The song is part of the pool.<br>
   *<b>Post: </b>The song is added to the playlist.<br>
   *@param song Song to be added to the playlist.<br>
+  *@see App#addToPool(String[],Duration) addToPool method in class App<br>
   */
   public boolean addSong(Song song) {
     if (empty) {
@@ -54,14 +59,14 @@ abstract public class Playlist {
   }
 
   /**
-  *Returns specific info of the playlist object
+  *Returns specific info of the playlist object.<br>
   *<b>Pre: </b><br>
   *<b>Post: </b>The information is returned.<br>
   */
   abstract public String[] showInfo();
 
   /**
-  *Generates auniquue 10 digit alphanumeric ID for the playlist.<br>
+  *Generates a uniquue 10 digit alphanumeric ID for the playlist.<br>
   *<b>Pre: </b><br>
   *<b>Post: </b>The ID is generated.<br>
   */
@@ -78,26 +83,42 @@ abstract public class Playlist {
 
   //Getters
 
+  /**
+  *@return The playlist name.<br>
+  */
   public String getPlaylistName() {
     return playlistName;
   }
 
+  /**
+  *@return The playlist formated duration.<br>
+  */
   public String getPlaylistDuration() {
     return playlistDuration.toString();
   }
 
+  /**
+  *@return The genres of the playlist.<br>
+  */
   public String getPlaylistGenres() {
     StringBuilder ret = new StringBuilder();
     for (String s : playlistGenres) {
-      ret.append(s.toUpperCase()).append(",");
+      ret.append(s.toUpperCase());
+      if (playlistGenres.size() != 1) ret.append(", ");
     }
     return ret.toString();
   }
 
+  /**
+  *@return The songs in the playlist.<br>
+  */
   public ArrayList<Song> getSongs() {
     return songs;
   }
 
+  /**
+  *@return The playlist Identity.<br>
+  */
   public String getIdentity() {
     return identity;
   }

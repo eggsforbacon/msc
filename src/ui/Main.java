@@ -1,8 +1,14 @@
 package ui;
 
+/**
+*This class holds the main method to be ran.<br>
+*@author Samuel Hernandez / Zac<br>
+*@since 0.1<br>
+*@version 1.0<br>
+*/
 public class Main {
 
-  public static final String VERSION = "0.16.4-pre";
+  public static final String VERSION = "1.0";
 
   public static void main(String[] args) {
     Menus menu = new Menus();

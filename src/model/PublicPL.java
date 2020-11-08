@@ -2,21 +2,28 @@ package model;
 import java.util.*;
 
 /**
-*Class that specifies the public playlists atributes and methods.<br>
-*@author Samuel Hernandez / Zac
+*Specifies on how a the public variant of Playlist should behave.<br>
+*@author Samuel Hernandez / Zac<br>
+*@since 0.3<br>
+*@see Playlist Playlist<br>
 */
 public class PublicPL extends Playlist {
 
   private ArrayList<Double> scores = new ArrayList<>();
   private double score;
 
+  /**
+  *The specific constructor of the class.<br>
+  *@param playlistName The name of the playlist.<br>
+  *@see model.Playlist#Playlist(String) Constructor in parent<br>
+  */
   public PublicPL(String playlistName) {
     super(playlistName);
     score = 0.00;
   }
 
   /**
-  *Returns specific info of the playlist object
+  *Returns specific info of the public playlist object.<br>
   *<b>Pre: </b><br>
   *<b>Post: </b>The information is returned.<br>
   */
@@ -47,7 +54,7 @@ public class PublicPL extends Playlist {
   *Modifies the score of the playlist.<br>
   *<b>Pre: </b><br>
   *<b>Post: </b>The score is modified.<br>
-  *@param newScore Double that carries the score to be added to the average score. <b>Must be between <i>1 and 5</i>.</b><br>
+  *@param newScore Double that represents the score to be added to the average score. <b>Must be between <i>1 and 5</i>.</b><br>
   */
   public String modifyScore(double newScore) {
     double temp = score;
@@ -68,6 +75,9 @@ public class PublicPL extends Playlist {
 
   //Getters
 
+  /**
+  *@return The score of the playlist.<br>
+  */
   public double getScore() {
     return score;
   }
